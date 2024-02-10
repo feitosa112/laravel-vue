@@ -1,61 +1,56 @@
 <template>
-<div class="container-fluid mb-3">
-    <div class="row px-xl-5">
-        <div class="col-lg-3 col-sm-6 col-6 mb-2" v-for="boutique in boutiques" :key="boutique.name">
-            <div class="product-offer mb-30" >
-                <img :src="getImagePath(boutique.image)"  alt="" class="img-fluid" loading="eager" style="width: auto;height: auto;">
-                    <div class="offer-text">
-                        <h1 class="text-white mb-3">{{ boutique.name }}</h1>
+    <div>
+      <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-6 col-lg-3 col-sm-6" v-for="boutique in boutiques" :key="boutique.id">
+                <router-link :to="{ name: 'boutique-page', params: { boutiqueName: boutique.name }}" style="text-decoration: none;">
+
+            <div class="product-offer mb-30">
+                <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
+                    <!-- <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save 20%</h6>
+                        <h3 class="text-white mb-3">Special Offer</h3>
+                        <a href="" class="btn btn-primary">Shop Now</a>
+                    </div> -->
+                    <div class="card">
+                        <h2 class="text-fluid text-center">{{ boutique.name }}</h2>
+                        <a href="" class="badge badge-primary bg-sm"><small class="text-fluid">{{ boutique.address }}</small></a>
                     </div>
             </div>
-            <div class="card-body">
-                <a class="badge badge-primary bg-sm mt-2"><p>Lokacija:{{ boutique.address }}</p></a>
+          </router-link>
 
-            </div>
-            <div class="card-footer">
-                <a href="" class="badge badge-primary bg-sm mt-2">
-                <p>Email:{{ boutique.email }}</p>
-                </a>
-                <a href="" class="badge badge-primary bg-sm mt-2">
-                <p>Telefon:{{ boutique.phone }}</p>
-
-                </a>
-        <router-link :to="{name:'boutique-page',params:{boutiqueId:boutique.id}}">Posjeti butik</router-link>
-
-
-
-            </div>
         </div>
-    </div>
-</div>
-</template>
+        </div>
+      </div>
 
-<script>
-export default {
+    </div>
+  </template>
+
+  <script>
+  export default {
     data() {
-        return {
-            boutiques: [],
-        };
+      return {
+
+        boutiques: [],
+      };
     },
     mounted() {
-        console.log('Component is mounted. Fetching data...');
-        this.fetchBoutiques();
+      this.fetchBoutiques();
     },
     methods: {
-        async fetchBoutiques() {
-            try {
-
-                const response = await axios.get('http://127.0.0.1:8000/allBoutiques');
-                console.log('API Response:', response.data);
-                this.boutiques = response.data;
-            } catch (error) {
-                console.error('Error fetching boutiques:', error);
-            }
-        },
-        getImagePath(imageName) {
-            return `http://127.0.0.1:8000/images/${imageName}`;
+      async fetchBoutiques() {
+        try {
+          const response = await this.$axios.get('http://127.0.0.1:8000/allBoutiques');
+          this.boutiques = response.data;
+        } catch (error) {
+          console.error('Error fetching boutiques', error);
+        }
+      },
+      getAbsoluteImagePath(imageName) {
+      return `http://127.0.0.1:8000/images/${imageName}`;
     }
-    },
-};
+  }
+    }
 
-</script>
+  </script>

@@ -1,5 +1,5 @@
 <template>
-    <boutiques/>
+<podnavbar/>
 <router-view></router-view>
 </template>
 

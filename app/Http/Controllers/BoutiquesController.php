@@ -18,13 +18,20 @@ class BoutiquesController extends Controller
 
     }
 
-    public function thisBoutique($boutiqueId){
-        try{
-            $boutique = BoutiquesModel::with('product')->findOrFail($boutiqueId);
+    public function thisBoutique($boutiqueName){
 
-            return response()->json($boutique);
+        try{
+            $boutique = BoutiquesModel::with('product')->where('name',$boutiqueName)->first();
+
+            if (!$boutique) {
+                return response()->json(['message' => 'Boutique not found'], 404);
+            }else{
+                return response()->json($boutique);
+
+            }
+
         }catch(\Exception $e){
-            dd($e->getMessage());
+            return response()->json(['message' => 'Error retrieving boutique details'], 500);
 
         }
     }

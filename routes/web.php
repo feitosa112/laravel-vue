@@ -18,4 +18,4 @@ Route::controller(BoutiquesController::class)->group(function(){
     Route::get('/allBoutiques','allBoutiques')->name('allBoutiques');
 
 });
-Route::get('/{boutiqueId}',[BoutiquesController::class,'thisBoutique']);
+Route::get('/{boutiqueName}',[BoutiquesController::class,'thisBoutique'])->name('boutique-page');
