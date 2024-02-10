@@ -13,9 +13,29 @@
         </div>
 
         <div class="row">
-            <div class="col-6 col-lg-3 col-sm-6" v-for="product in boutique.product">
-                <div class="product-offer mb-30">
-                    <img :src="getAbsoluteImagePath(product.image)" alt="Za ovaj proizvod trenudtno ne postoji slika" class="img-fluid">
+            <div class="col-lg-3 col-6 col-md-6 col-sm-6" v-for="product in boutique.product">
+                <div class="product-item bg-light">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
+                        <div class="product-action">
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5 class="success">{{ product.price }}KM</h5><h6 class="danger text-muted ml-2"><del>$123.00</del></h6>
+                        </div>
+                    <div class="d-flex align-items-center justify-content-center mb-1">
+                        <a href="" class="badge badge-warning badge-sm float-left me-2" style="text-decoration: none;"><p class="mt-2">Dodaj u korpu</p></a>
+                        <a href="" class="badge badge-success badge-sm float-right ms-2" style="text-decoration: none;"><p class="mt-2">Naruci odmah</p></a>
+
+                    </div>
+                    <small>{{ boutique.name }}</small>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,4 +97,5 @@ p{
     font-family: Georgia, 'Times New Roman', Times, serif;
     font-weight: 900;
 }
+
 </style>
