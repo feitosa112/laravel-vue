@@ -1,6 +1,6 @@
 
 <div class="container-fluid">
-    <div class="row bg-secondary py-1 px-xl-5">
+    <div class="row bg-dark py-1 px-xl-5">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center h-100">
                 {{-- <a class="text-body mr-3" href="">About</a>
@@ -12,8 +12,8 @@
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
 
-                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    <button type="button" class="btn btn-sm btn-warning dropdown-toggle" style="border-radius: 6px" data-toggle="dropdown">My Account</button>
+                    <div class="dropdown-menu dropdown-menu-right sm-bg-dark col-md-warning" id="userDiv">
                         @guest
                     @if (Route::has('login'))
                         <li class="nav-item">

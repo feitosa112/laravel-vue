@@ -9712,7 +9712,13 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
-
+/* #userDiv{
+    background-color: #16181b;
+    color: whitesmoke;
+} */
+p {
+    line-height: 0.5;
+}
 @media (max-width:556px) {
     p {
         font-size: 7px;
@@ -9720,7 +9726,9 @@ a.text-dark:hover, a.text-dark:focus {
     small{
         font-size: 7px;
     };
-
+    h1 {
+        font-size: 10;
+    }
     h2{
         font-size: 9px;
     }

@@ -11,10 +11,13 @@ class ProductsModel extends Model
     protected $fillable = [
         'name',
         'boutique_id',
+        'category_id',
+        'subcategory_id',
+        'boutique_id'
     ];
     use HasFactory;
 
-    public function product(){
-        return $this->belongsTo(BoutiquesModel::class,'id','boutique_id');
+    public function boutique(){
+        return $this->hasMany(BoutiquesModel::class,'id','boutique_id');
     }
 }

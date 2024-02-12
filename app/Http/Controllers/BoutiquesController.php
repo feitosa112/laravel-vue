@@ -19,9 +19,9 @@ class BoutiquesController extends Controller
     }
 
     public function thisBoutique($boutiqueName){
-
+        $name = str_replace('-',' ',$boutiqueName);
         try{
-            $boutique = BoutiquesModel::with('product')->where('name',$boutiqueName)->first();
+            $boutique = BoutiquesModel::with('product')->where('name',$name)->first();
 
             if (!$boutique) {
                 return response()->json(['message' => 'Boutique not found'], 404);

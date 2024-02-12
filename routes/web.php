@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoutiquesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 Route::controller(BoutiquesController::class)->group(function(){
@@ -21,4 +22,10 @@ Route::controller(BoutiquesController::class)->group(function(){
 
 });
 Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
+
+
 Route::get('/{boutiqueName}',[BoutiquesController::class,'thisBoutique'])->name('boutique-page');
+
+Route::get('/products/{subcategory_id}',[ProductController::class,'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
+Route::get('products/{category_id}',[ProductController::class,'getProductsWithCategory'])->name('getProductsWithCategory');
+Route::get('/product/{id}/{productName}',[ProductController::class,'getThisProduct'])->name('thisProduct');
