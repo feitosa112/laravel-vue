@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoutiquesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,3 +30,5 @@ Route::get('/{boutiqueName}',[BoutiquesController::class,'thisBoutique'])->name(
 Route::get('/products/{subcategory_id}',[ProductController::class,'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
 Route::get('products/{category_id}',[ProductController::class,'getProductsWithCategory'])->name('getProductsWithCategory');
 Route::get('/product/{id}/{productName}',[ProductController::class,'getThisProduct'])->name('thisProduct');
+
+Route::get('/user/isLoged',[HomeController::class,'getLogedUser'])->name('isLogedUser');

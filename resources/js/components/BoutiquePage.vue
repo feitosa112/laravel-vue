@@ -2,10 +2,11 @@
 
 <template>
     <div class="container-fluid" >
+
         <div class="row" style="background-color: #FFD333;">
             <div class="col-4" style="border-right: 1px dotted gray;"></div>
             <div class="col-4" style="color: #343a40;" >
-
+                <h1>{{ user }}</h1>
                 <h1 class="text-center" style="letter-spacing: 5px;">{{ boutique.name }}</h1>
                 <p class="text-center">{{ boutique.address }}</p>
                 <p class="text-center">{{ boutique.email }}</p>
@@ -56,6 +57,8 @@
 
   <script>
   export default {
+    inject:['user'],
+
     data() {
       return {
         boutique: {},
