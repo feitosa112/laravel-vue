@@ -249,7 +249,7 @@
                 const id = this.$route.params.id;
 
                 try {
-                    const response = await this.$axios.get(`http://127.0.0.1:8000/product/${id}/${productName}`);
+                    const response = await this.$axios.get(`http://127.0.0.1:8000/api/product/${id}/${productName}`);
                     console.log('API Response:', response.data);
                     this.product = response.data;
                 }catch(error){

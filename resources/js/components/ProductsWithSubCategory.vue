@@ -53,7 +53,7 @@ export default {
     const subcategory_id = this.$route.params.subcategory_id;
 
     try {
-        const response = await this.$axios.get(`http://127.0.0.1:8000/products/${subcategory_id}`);
+        const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/${subcategory_id}`);
         console.log('API Response:', response.data);
         // Obrada podataka kada je status 200 OK
         this.products = response.data;

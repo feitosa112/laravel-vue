@@ -24,7 +24,7 @@
                             <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
                     <div class="offer-text">
                         <!-- <h6 class="text-white text-uppercase">Save 20%</h6> -->
-                        <h5 class="text-white mb-3" v-if="boutique.id === 1">Veliko snizenje !!!</h5>
+                        <!-- <h5 class="text-white mb-3" v-if="boutique.id === 1">Veliko snizenje !!!</h5> -->
                         <!-- <a href="" class="btn btn-primary">Shop Now</a> -->
                     </div>
                             <div class="card">
@@ -71,7 +71,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
     methods: {
       async fetchBoutiques() {
         try {
-            const response = await this.$axios.get('http://127.0.0.1:8000/allBoutiques');
+            const response = await this.$axios.get('http://127.0.0.1:8000/api/allBoutiques');
             this.boutiques = response.data;
 
         } catch (error) {

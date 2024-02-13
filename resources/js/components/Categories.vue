@@ -41,7 +41,7 @@ export default {
     methods: {
       async getAllCategories() {
         try {
-          const odg = await this.$axios.get('http://127.0.0.1:8000/boutique/allCategories');
+          const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
           this.allCategories = odg.data;
           console.log(this.allCategories);
         } catch (error) {

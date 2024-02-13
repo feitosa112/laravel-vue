@@ -19,6 +19,7 @@ class BoutiquesController extends Controller
     }
 
     public function thisBoutique($boutiqueName){
+
         $name = str_replace('-',' ',$boutiqueName);
         try{
             $boutique = BoutiquesModel::with('product')->where('name',$name)->first();

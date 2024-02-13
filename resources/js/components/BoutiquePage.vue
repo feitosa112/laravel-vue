@@ -72,7 +72,7 @@
         async fetchBoutiqueDetails() {
     const boutiqueName = this.$route.params.boutiqueName;
     try {
-        const response = await this.$axios.get(`http://127.0.0.1:8000/${boutiqueName}`);
+        const response = await this.$axios.get(`http://127.0.0.1:8000/api/${boutiqueName}`);
         console.log('API Response:', response.data);
         // Obrada podataka kada je status 200 OK
         this.boutique = response.data;

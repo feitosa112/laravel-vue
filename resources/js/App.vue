@@ -20,7 +20,7 @@ export default {
   methods: {
     async loggedUser() {
       try {
-        const response = await this.$axios.get('http://127.0.0.1:8000/user/isLoged');
+        const response = await this.$axios.get('http://127.0.0.1:8000/api/user/isLoged');
         this.user = response.data;
       } catch (error) {
         console.error('Error fetching user data:', error);

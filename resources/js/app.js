@@ -18,10 +18,11 @@ const router = createRouter({
     history:createWebHistory(),
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
-        {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
         {path:'/products/:subcategory_id',component:ProductsWithSubCategory,name:'getProductsWithSubCategory'},
         {path:'/products/:category_id',component:ProductsWithCategory,name:'getProductsWithCategory'},
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
+        {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
+
 
 
 
