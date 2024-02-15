@@ -12,16 +12,21 @@ import PodNavbar from "./components/PodNavbar.vue";
 import ProductsWithSubCategory from "./components/ProductsWithSubCategory.vue";
 import ProductsWithCategory from "./components/ProductsWithCategory.vue";
 import ThisProduct from "./components/ThisProduct.vue";
+import Cart from "./components/Cart.vue"
 
 const app = createApp(App)
 const router = createRouter({
     history:createWebHistory(),
+    mode:'history',
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
         {path:'/products/:subcategory_id',component:ProductsWithSubCategory,name:'getProductsWithSubCategory'},
         {path:'/products/:category_id',component:ProductsWithCategory,name:'getProductsWithCategory'},
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
+        {path:'/cart/:id',component:Cart,name:'addToCart'},
+        {path:'/cart',component:Cart,name:'cart'}
+
 
 
 

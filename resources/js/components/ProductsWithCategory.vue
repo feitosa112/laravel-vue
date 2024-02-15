@@ -50,7 +50,7 @@
 
 
         try {
-            const response = await this.$axios.get(`http://127.0.0.1:8000/products/${category_id}`);
+            const response = await this.$axios.get(`http://127.0.0.1:8000/products/api/s${category_id}`);
             console.log('API Response:', response.data);
             // Obrada podataka kada je status 200 OK
             this.products = response.data;

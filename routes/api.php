@@ -24,15 +24,25 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(BoutiquesController::class)->group(function(){
     Route::get('/allBoutiques','allBoutiques')->name('allBoutiques');
+    Route::get('/{boutiqueName}','thisBoutique')->name('boutique-page');
+
+
+});
+Route::controller(ProductController::class)->group(function(){
+    Route::get('/products/{subcategory_id}','getProductsWithSubCategory')->name('getProductsWithSubCategory');
+    Route::get('products/{category_id}','getProductsWithCategory')->name('getProductsWithCategory');
+    Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
+    Route::get('/cart/{id}','addToCart')->name('addToCart');
+
 
 });
 Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
 
 
-Route::get('/{boutiqueName}',[BoutiquesController::class,'thisBoutique'])->name('boutique-page');
 
-Route::get('/products/{subcategory_id}',[ProductController::class,'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
-Route::get('products/{category_id}',[ProductController::class,'getProductsWithCategory'])->name('getProductsWithCategory');
-Route::get('/product/{id}/{productName}',[ProductController::class,'getThisProduct'])->name('thisProduct');
 
 Route::get('/user/isLoged',[HomeController::class,'getLogedUser'])->name('isLogedUser');
+
+Route::get('/{any}', function () {
+    return view('home');
+})->where('any', '.*');

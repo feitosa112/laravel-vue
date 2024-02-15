@@ -6,7 +6,7 @@
         <div class="row" style="background-color: #FFD333;">
             <div class="col-4" style="border-right: 1px dotted gray;"></div>
             <div class="col-4" style="color: #343a40;" >
-                <h1>{{ user }}</h1>
+
                 <h1 class="text-center" style="letter-spacing: 5px;">{{ boutique.name }}</h1>
                 <p class="text-center">{{ boutique.address }}</p>
                 <p class="text-center">{{ boutique.email }}</p>
@@ -20,7 +20,6 @@
 
         <div class="row" style="height: 35wh;">
                 <div class="col-lg-3 col-4 col-md-4 col-sm-4"  v-for="product in boutique.product">
-                    <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
 
                 <div class="product-item bg-light" id="products" style="border: 2px solid rgb(173, 167, 167);padding: 0;">
                     <div class="product-img position-relative overflow-hidden">
@@ -34,18 +33,21 @@
                     </div>
                     <div class="text-center py-4" style="margin-top: -15px;">
                         <a class="h6 text-decoration-none text-truncate" href=""><h4>{{ product.name }}</h4></a>
+                    <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
+
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <h5 class="success">{{ product.price }}KM</h5><h6 class="danger text-muted ml-2" v-if="product.old_price != null"><del class="danger">{{ product.old_price }} KM</del></h6>
                         </div>
+                 </router-link>
+
                     <div class="d-flex align-items-center justify-content-center mb-1">
-                        <a href="" class="badge badge-warning badge-sm float-left me-1" style="text-decoration: none;"><p class="mt-2">Dodaj u korpu</p></a>
+                        <a href="" class="badge badge-warning badge-sm float-left me-1" style="text-decoration: none;" @click.prevent="addToCart(product)"><p class="mt-2">Dodaj u korpu</p></a>
                         <a href="" class="badge badge-success badge-sm float-right ms-1" style="text-decoration: none;"><p class="mt-2">Naruci odmah</p></a>
 
                     </div>
                     <small style="color: #343a40;">{{ boutique.name }}</small>
                     </div>
                 </div>
-                 </router-link>
 
             </div>
 
@@ -57,11 +59,12 @@
 
   <script>
   export default {
-    inject:['user'],
+
 
     data() {
       return {
         boutique: {},
+
       };
     },
     mounted() {
@@ -69,6 +72,8 @@
       this.fetchBoutiqueDetails();
     },
     methods: {
+
+
         async fetchBoutiqueDetails() {
     const boutiqueName = this.$route.params.boutiqueName;
     try {
@@ -90,7 +95,40 @@
             console.error('Internal Server Error');
         }
     }
+
+
 },
+
+addToCart(product) {
+    // Retrieve existing cart items from local storage or initialize an empty array
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the product is already in the cart
+    const existingProductIndex = cartItems.findIndex(item => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+        // If the product is already in the cart, update quantity
+        cartItems[existingProductIndex].quantity += 1;
+    } else {
+        // If the product is not in the cart, add it with a quantity of 1
+        cartItems.push({ id: product.id, name: product.name, quantity: 1, price: product.price });
+    }
+
+    // Save the updated cart items to local storage
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    this.productInCart = cartItems;
+
+    // Emitujte događaj za obaveštenje drugih komponenti o promenama u localStorage
+    this.$root.$emit('localStorageUpdated');
+
+    // Optionally, you can display a message or perform any other actions after adding to the cart
+    console.log('Product added to the cart:', product);
+    console.log('Updated cartItems:', cartItems);
+},
+
+
+
+
 // postavljena apsolutna putanja za slike
 getAbsoluteImagePath(imageName) {
       return `http://127.0.0.1:8000/images/${imageName}`;
@@ -98,8 +136,25 @@ getAbsoluteImagePath(imageName) {
     // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
     removeSpace(name){
         return name.replace(/\s+/g, "-");
-    }
     },
+
+
+    },
+
+    provide(){
+        return {
+      cartItems: this.cartItems || [],
+    };
+    },
+
+    watch:{
+        cartItems(newCartItems) {
+      // Update the provide data when cartItems change
+      this.$root.cartItems = newCartItems;
+    },
+    }
+
+
   };
   </script>
 

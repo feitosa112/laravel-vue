@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ProductController extends Controller
 {
@@ -53,5 +54,22 @@ class ProductController extends Controller
             return response()->json(['message' => 'Error retrieving product details'], 500);
 
         }
+    }
+
+    public function addToCart($id){
+        try{
+            $product = ProductsModel::find($id);
+            if($product){
+            $cart = Session::get('cart',[]);
+            $cart[$id] = $product;
+            Session::put('cart',$cart);
+
+            return response()->json($product);
+            }
+        }catch(\Exception $e){
+            return response()->json(['message' => 'No found product'], 500);
+
+        }
+
     }
 }

@@ -25,13 +25,14 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <a href="" class="btn px-0">
+                            <button class="btn btn-info" @click="clear">Obrisi localStorage</button>
+                            <router-link :to="{name:'cart'}" class="btn px-0">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            </a>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{cartItems.length}}</span>
+                            </router-link>
                             <a href="" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">2</span>
                             </a>
                         </div>
                     </div>
@@ -49,7 +50,30 @@ export default {
     data(){
         return {
             componentKey:0,
+            cartItems: this.getCartItems(),
         }
+    },
+    methods: {
+        getCartItems() {
+            return JSON.parse(localStorage.getItem('cart')) || [];
+        },
+        updateCartItems() {
+            this.cartItems = this.getCartItems();
+        },
+        clear(){
+            localStorage.clear();
+        },
+    },
+    mounted() {
+    // Slušajte događaj za obaveštenje o promenama u localStorage
+    this.$root.$on('localStorageUpdated', () => {
+        // Ažurirajte podatke koji se prikazuju (npr. this.cartItems)
+        this.cartItems = this.getCartItems();
+    });
+},
+
+    watch:{
+        '$root.localStorageUpdated': 'refreshCartItems',
     }
     }
 

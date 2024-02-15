@@ -52,6 +52,7 @@
       </div>
 
     </div>
+
   </template>
 
 <!-- U scriptu imamo metodu fetchBoutiques u kojoj dobijamo niz objekata(butika) u varijablu boutiques,
