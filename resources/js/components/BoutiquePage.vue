@@ -4,7 +4,8 @@
     <div class="container-fluid" >
 
         <div class="row" style="background-color: #FFD333;">
-            <div class="col-4" style="border-right: 1px dotted gray;"></div>
+            <div class="col-4" style="border-right: 1px dotted gray;">
+            </div>
             <div class="col-4" style="color: #343a40;" >
 
                 <h1 class="text-center" style="letter-spacing: 5px;">{{ boutique.name }}</h1>
@@ -19,40 +20,42 @@
         </div>
 
         <div class="row" style="height: 35wh;">
-                <div class="col-lg-3 col-4 col-md-4 col-sm-4"  v-for="product in boutique.product">
-
-                <div class="product-item bg-light" id="products" style="border: 2px solid rgb(173, 167, 167);padding: 0;box-shadow: slategray;">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4" style="margin-top: -15px;">
-                        <a class="h6 text-decoration-none text-truncate" href=""><h4>{{ product.name }}</h4></a>
+                <div class="col-6 col-md-6 col-sm-6 col-lg-4 mb-2"  v-for="product in boutique.product">
                     <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
+                        <div class="card" id="card" style="max-width: 300px;box-shadow:5px 5px 5px gray">
+                            <div class="card-header">
+                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
+                                <div class="product-img position-relative overflow-hidden">
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                </div>
+                                </div>
+                            </div>
 
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5 class="success">{{ product.price }}KM</h5><h6 class="danger text-muted ml-2" v-if="product.old_price != null"><del class="danger">{{ product.old_price }} KM</del></h6>
+                        <div class="card-body" style="padding: 0">
+                            <h3 class="card-title naslov">{{ product.name }}</h3>
+                            <h4 class="card-subtitle mb-2 float-start naslov" style="color: #65B741">{{ product.price }}KM</h4>
+                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=null" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
                         </div>
-                 </router-link>
 
-                    <div class="d-flex align-items-center justify-content-center mb-1">
-                        <a href="" class="badge badge-warning badge-sm float-left me-1" style="text-decoration: none;" @click.prevent="addToCart(product)"><p class="mt-2">Dodaj u korpu</p></a>
-                        <a href="" class="badge badge-success badge-sm float-right ms-1" style="text-decoration: none;"><p class="mt-2">Naruci odmah</p></a>
+                        <div class="card-footer" style="padding: 2px">
+                            <a href="" style="border-radius: 5px" class="btn btn-primary btn-sm float-start mobile-button">Kupi</a>
+                        </div>
 
-                    </div>
-                    <small style="color: #343a40;">{{ boutique.name }}</small>
-                    </div>
+                        </div>
+                    </router-link>
+
                 </div>
+
+
 
             </div>
 
         </div>
-    </div>
+
 
 
   </template>

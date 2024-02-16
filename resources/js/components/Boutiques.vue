@@ -17,22 +17,32 @@
             </div>
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-5 col-lg-3 col-sm-5" v-for="boutique in boutiques" :key="boutique.id" style="border-right: 1px dotted gray;">
-                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
+                    <div class="col-6 col-md-6 col-sm-6 col-lg-4 mb-2" v-for="boutique in boutiques" :key="boutique.id" style="border-right: 1px dotted gray;">
+                            <div class="card" id="card" style="border-radius: 5%;box-shadow:0px 0px 5px rgba(0,0,0,0.5);">
+                                <div class="card-header">
+                                    <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
+                                </div>
 
-                        <div class="product-offer mb-30">
-                            <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
-                    <div class="offer-text">
-                        <!-- <h6 class="text-white text-uppercase">Save 20%</h6> -->
-                        <!-- <h5 class="text-white mb-3" v-if="boutique.id === 1">Veliko snizenje !!!</h5> -->
-                        <!-- <a href="" class="btn btn-primary">Shop Now</a> -->
-                    </div>
-                            <div class="card">
-                                <h2 class="text-fluid text-center">{{ boutique.name }}</h2>
-                                <a href="" class="badge badge-primary bg-sm"><small class="text-fluid">{{ boutique.address }}</small></a>
+                                <div class="card-body naslov mt-2">
+                                    <h4 class="text-fluid text-center">{{ boutique.name }}</h4>
+                                </div>
+
+                                <div class="card-footer podnaslov">
+                                    <p class="float-start">
+                                        <small>{{ boutique.address }}</small>
+                                    </p>
+
+                                    <p class="float-end podnaslov">
+                                        <small v-if="boutique.phone != null">{{ boutique.phone }}</small>
+                                    </p>
+                                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
+
+                                            <button class="btn btn-primary form-control" id="butik-submit" style="border-radius: 5px;">Pogledaj</button>
+                                        </router-link>
+
+                                </div>
                             </div>
-                        </div>
-                        </router-link>
+
 
                     </div>
                 </div>

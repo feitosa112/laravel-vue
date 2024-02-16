@@ -9720,6 +9720,31 @@ p {
     line-height: 0.5;
 }
 @media (max-width:556px) {
+    .mobile-button{
+        height: 20px;
+        width: 51px;
+        font-size: 10px;
+        padding: 1px;
+    }
+    #this_boutique_image{
+        height: 80px;
+    }
+    #butik-submit{
+        max-width: 65px;
+        max-height: 25px;
+        font-size: 10px;
+
+    }
+    #card{
+        max-height: 200px;
+        box-shadow:0px 0px 5px
+    }
+    .naslov{
+        font-size: 12px;
+    }
+    .podnaslov{
+        font-size: 10px;
+    }
     p {
         font-size: 7px;
     };
