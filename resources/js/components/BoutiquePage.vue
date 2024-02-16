@@ -21,7 +21,7 @@
         <div class="row" style="height: 35wh;">
                 <div class="col-lg-3 col-4 col-md-4 col-sm-4"  v-for="product in boutique.product">
 
-                <div class="product-item bg-light" id="products" style="border: 2px solid rgb(173, 167, 167);padding: 0;">
+                <div class="product-item bg-light" id="products" style="border: 2px solid rgb(173, 167, 167);padding: 0;box-shadow: slategray;">
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
                         <div class="product-action">

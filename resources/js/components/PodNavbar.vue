@@ -49,7 +49,7 @@ export default {
     data(){
         return {
             componentKey:0,
-            cartItems: this.getCartItems(),
+
         }
     },
 
