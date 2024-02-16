@@ -100,28 +100,21 @@
 },
 
 addToCart(product) {
-    // Retrieve existing cart items from local storage or initialize an empty array
     let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Check if the product is already in the cart
     const existingProductIndex = cartItems.findIndex(item => item.id === product.id);
 
     if (existingProductIndex !== -1) {
-        // If the product is already in the cart, update quantity
         cartItems[existingProductIndex].quantity += 1;
     } else {
-        // If the product is not in the cart, add it with a quantity of 1
         cartItems.push({ id: product.id, name: product.name, quantity: 1, price: product.price });
     }
 
-    // Save the updated cart items to local storage
     localStorage.setItem('cart', JSON.stringify(cartItems));
     this.productInCart = cartItems;
 
-    // Emitujte događaj za obaveštenje drugih komponenti o promenama u localStorage
     this.$root.$emit('localStorageUpdated');
 
-    // Optionally, you can display a message or perform any other actions after adding to the cart
     console.log('Product added to the cart:', product);
     console.log('Updated cartItems:', cartItems);
 },
