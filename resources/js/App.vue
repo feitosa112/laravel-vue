@@ -1,19 +1,21 @@
 <template>
 <podnavbar/>
 <router-view></router-view>
-
+<Footer></Footer>
 </template>
 
 
 <script>
-
+import Footer from './components/Footer.vue';
+import {reactive} from 'vue';
 export default {
-
+    components:{Footer},
     data(){
         return {
             user:[]
         }
     },
+
     mounted(){
         this.loggedUser()
     },

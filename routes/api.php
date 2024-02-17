@@ -32,7 +32,7 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('/products/{subcategory_id}','getProductsWithSubCategory')->name('getProductsWithSubCategory');
     Route::get('products/{category_id}','getProductsWithCategory')->name('getProductsWithCategory');
     Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
-    Route::get('/cart/{id}','addToCart')->name('addToCart');
+
 
 
 });

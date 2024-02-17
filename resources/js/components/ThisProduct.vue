@@ -98,8 +98,16 @@
                                 </button>
                             </div>
                         </div>
-                        <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                            Cart</button>
+                        <button class="btn btn-primary px-3" @click="addToCart(product)"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        <div>
+    <h2>Korpa</h2>
+    <p>{{ cart.length }}</p>
+    <ul>
+      <li v-for="item in cart" :key="item.id">
+        {{ item.name }} - {{ item.price }} $ ({{ item.quantity }})
+      </li>
+    </ul>
+  </div>
                     </div>
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
@@ -234,16 +242,21 @@
 </template>
 
 <script>
+    import {reactive} from 'vue';
     export default {
         data(){
             return {
                 product:{},
+                cart:[],
+
             }
         },
+
         mounted(){
             this.getProduct();
         },
         methods:{
+
             async getProduct(){
                 const productName = this.$route.params.productName;
                 const id = this.$route.params.id;
@@ -267,9 +280,55 @@
                     }
                 }
             },
+
+            addToCart(product){
+                const existingItem = this.cart.find(item => item.id === product.id);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                }else {
+                    this.cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        quantity: 1
+                    });
+                }
+
+                this.saveCartToLocalStorage();
+            },
+
+            saveCartToLocalStorage() {
+            // Konvertujemo korpu u JSON format i čuvamo je u local storage
+            localStorage.setItem('cart', JSON.stringify(this.cart));
+            },
+
+            loadCartFromLocalStorage(){
+                const savedCart = localStorage.getItem('cart');
+
+                if (savedCart) {
+                this.cart = JSON.parse(savedCart);
+            }
+            },
+
+
             getAbsoluteImagePath(imageName) {
                 return `http://127.0.0.1:8000/images/${imageName}`;
     },
-        }
+        },
+
+        created() {
+    // Učitavamo korpu iz local storage prilikom kreiranja Vue instance
+    this.loadCartFromLocalStorage();
+  },
+  provide() {
+    // Ovde prosleđujemo korpu kao globalnu promenljivu
+    provide("cart", this.cart);
+
+    return {
+      cart: this.cart,
+    };
+  },
+
     }
 </script>

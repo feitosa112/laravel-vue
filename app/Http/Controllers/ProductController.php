@@ -56,20 +56,7 @@ class ProductController extends Controller
         }
     }
 
-    public function addToCart($id){
-        try{
-            $product = ProductsModel::find($id);
-            if($product){
-            $cart = Session::get('cart',[]);
-            $cart[$id] = $product;
-            Session::put('cart',$cart);
 
-            return response()->json($product);
-            }
-        }catch(\Exception $e){
-            return response()->json(['message' => 'No found product'], 500);
 
-        }
 
-    }
 }
