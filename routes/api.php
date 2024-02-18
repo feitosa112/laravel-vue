@@ -34,10 +34,14 @@ Route::controller(ProductController::class)->group(function(){
     Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
 
 
-
 });
 Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
 
+Route::group(['middleware' => 'web'], function () {
+    Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
+    Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
+    Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
+});
 
 
 

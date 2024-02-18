@@ -28,87 +28,51 @@
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">
                     <h1>{{ product.name }}</h1>
+
                     <div class="d-flex mb-3">
 
                         <small class="pt-1">(99 Reviews)</small>
                     </div>
                     <h3 class="font-weight-semi-bold mb-4">{{ product.price }} KM</h3>
                     <p class="mb-4">{{ product.description }}</p>
-                    <div class="d-flex mb-3">
-                        <strong class="text-dark mr-3">Sizes:</strong>
-                        <form>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-1" name="size">
-                                <label class="custom-control-label" for="size-1">XS</label>
+
+
+                        <form @submit.prevent="submitForm">
+
+                            <div class="d-flex mb-3" v-if="product.size != null">
+                                <strong class="text-dark mr-3">Sizes:</strong>
+
+                                <div class="custom-control custom-radio custom-control-inline" v-for="(size,index) in product.size.split(',')">
+                                    <input type="radio" class="custom-control-input" :id="'size-'+index" :name="'size-group'" v-model="selectedSize" :value="size">
+                                    <label class="custom-control-label" :for="'size-'+index">{{ size }}</label>
+                                </div>
+
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-2" name="size">
-                                <label class="custom-control-label" for="size-2">S</label>
+                            <div class="d-flex mb-4" v-if="product.color != null">
+                                <strong class="text-dark mr-3">Colors:</strong>
+
+                                <div class="custom-control custom-radio custom-control-inline" v-for="(color, index) in product.color.split(',')">
+                                    <input type="radio" class="custom-control-input" :id="'color-' + index" :name="'color-group'" v-model="selectedColor" :value="color">
+                                    <label class="custom-control-label" :style="{color: color, backgroundColor: color === 'white' ? 'black' : '' }" :for="'color-' + index">{{ color }}</label>
+                                </div>
                             </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-3" name="size">
-                                <label class="custom-control-label" for="size-3">M</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-4" name="size">
-                                <label class="custom-control-label" for="size-4">L</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="size-5" name="size">
-                                <label class="custom-control-label" for="size-5">XL</label>
-                            </div>
+
+
+                        <button class="btn btn-primary px-3" type="submit"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+
                         </form>
-                    </div>
-                    <div class="d-flex mb-4">
-                        <strong class="text-dark mr-3">Colors:</strong>
-                        <form>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-1" name="color">
-                                <label class="custom-control-label" for="color-1">Black</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-2" name="color">
-                                <label class="custom-control-label" for="color-2">White</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-3" name="color">
-                                <label class="custom-control-label" for="color-3">Red</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-4" name="color">
-                                <label class="custom-control-label" for="color-4">Blue</label>
-                            </div>
-                            <div class="custom-control custom-radio custom-control-inline">
-                                <input type="radio" class="custom-control-input" id="color-5" name="color">
-                                <label class="custom-control-label" for="color-5">Green</label>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="d-flex align-items-center mb-4 pt-2">
-                        <div class="input-group quantity mr-3" style="width: 130px;">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-minus">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                            <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary btn-plus">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
+                        <div class="alert alert-success" v-if="productInCart">Proizvod je u korpi vec</div>
+
+                        <div class="alert alert-info" v-if="message">
+                        {{ message }}
                         </div>
-                        <button class="btn btn-primary px-3" @click="addToCart(product)"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
-                        <div>
-    <h2>Korpa</h2>
-    <p>{{ cart.length }}</p>
-    <ul>
-      <li v-for="item in cart" :key="item.id">
-        {{ item.name }} - {{ item.price }} $ ({{ item.quantity }})
-      </li>
-    </ul>
-  </div>
-                    </div>
+                        <div class="alert alert-danger" v-if="error">
+                            {{ error }}
+                        </div>
+
+
+
+
                     <div class="d-flex pt-2">
                         <strong class="text-dark mr-2">Share on:</strong>
                         <div class="d-inline-flex">
@@ -249,6 +213,9 @@
                 product:{},
                 cart:[],
 
+                message:null,
+                error:null,
+                productInCart:false
             }
         },
 
@@ -256,6 +223,33 @@
             this.getProduct();
         },
         methods:{
+            async submitForm() {
+            // Napravite objekat sa podacima koje želite poslati
+            const formData = {
+                id: this.product.id,
+                boutiqueName:this.product.boutique[0].name,
+                color: this.selectedColor,
+                size: this.selectedSize,
+                // Dodajte ostale podatke o proizvodu koji su vam potrebni
+                // ...
+            };
+
+            // Napravite HTTP POST zahtev ka Laravel serveru
+            try {
+                const response = await axios.post(`http://127.0.0.1:8000/api/cart/addToCart`, formData);
+                // Obradite odgovor ako je potrebno
+                console.log(response.data);
+                this.cart = response.data
+                this.message = 'Proizvod je dodat u korpu';
+                this.error=null;
+
+
+
+            } catch (error) {
+                console.error('Došlo je do greške prilikom slanja forme:', error);
+                this.error = "Popunite sva polja(size,color...)"
+            }
+        },
 
             async getProduct(){
                 const productName = this.$route.params.productName;
@@ -281,35 +275,11 @@
                 }
             },
 
-            addToCart(product){
-                const existingItem = this.cart.find(item => item.id === product.id);
 
-                if (existingItem) {
-                    existingItem.quantity++;
-                }else {
-                    this.cart.push({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        quantity: 1
-                    });
-                }
 
-                this.saveCartToLocalStorage();
-            },
 
-            saveCartToLocalStorage() {
-            // Konvertujemo korpu u JSON format i čuvamo je u local storage
-            localStorage.setItem('cart', JSON.stringify(this.cart));
-            },
 
-            loadCartFromLocalStorage(){
-                const savedCart = localStorage.getItem('cart');
 
-                if (savedCart) {
-                this.cart = JSON.parse(savedCart);
-            }
-            },
 
 
             getAbsoluteImagePath(imageName) {
@@ -317,18 +287,8 @@
     },
         },
 
-        created() {
-    // Učitavamo korpu iz local storage prilikom kreiranja Vue instance
-    this.loadCartFromLocalStorage();
-  },
-  provide() {
-    // Ovde prosleđujemo korpu kao globalnu promenljivu
-    provide("cart", this.cart);
 
-    return {
-      cart: this.cart,
-    };
-  },
+
 
     }
 </script>

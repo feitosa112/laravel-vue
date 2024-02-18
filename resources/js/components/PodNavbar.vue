@@ -25,9 +25,9 @@
                             <a href="contact.html" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                            <router-link class="btn px-0" :to="{name:'cart'}">
+                            <router-link class="btn px-0" :to="{name:'cartView'}">
                                 <i class="fas fa-heart text-primary"></i>
-                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">{{ cart.length }}</span>
+                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">View Cart</span>
                             </router-link>
                             <a href="" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
@@ -43,26 +43,16 @@
 
 <script>
 import Categories from './Categories.vue';
-import {inject} from 'vue';
+
 export default {
 
-    components:{Categories},
-    setup(){
-        const cart = inject('cart');
-        console.log('cart...', cart);
-        return {
-            cart
-        };
-    },
-    data(){
-        return {
-            componentKey:0,
 
-        }
-    },
-
-
-
-    }
+  components: { Categories },
+  data() {
+    return {
+      componentKey: 0,
+    };
+  },
+};
 
 </script>

@@ -56,7 +56,62 @@ class ProductController extends Controller
         }
     }
 
+    public function addToCart(Request $request) {
+        // $id je vrednost uhvaćena iz URL rute
+        // Session::forget('cart');
+        // Uzimanje podataka iz tela HTTP POST zahteva
+        $formData = $request->all();
+
+        // Rad sa podacima iz tela zahteva i $id
+
+        // Primer: Dodavanje proizvoda u korpu
+
+
+        $color = $formData['color']; // Prilagodite ključu prema strukturi vašeg tela zahteva
+        $size = $formData['size']; // Prilagodite ključu prema strukturi vašeg tela zahteva
+        $boutiqueName = $formData['boutiqueName'];
+        $id = $formData['id'];
+        $product = ProductsModel::with('boutique')->find($id);
+
+        // Dalja logika za dodavanje u korpu
+        $cart = Session::get('cart', []);
+
+        // Dodavanje novog proizvoda u korpu
+        $cart[] = [
+            'productId'=>$product->id,
+            'productName'=>$product->name,
+            'boutiqueName'=>$boutiqueName,
+            'color' => $color,
+            'size' => $size,
+        ];
+
+        // Čuvanje ažurirane korpe u sesiji
+        Session::put('cart', $cart);
+
+        // Vraćanje odgovora
+        return response()->json($cart);
+    }
+
+    public function cartView() {
+        // dd(Session::all());
+        // Dobijanje trenutnog sadržaja korpe iz sesije
+        $cart = Session::get('cart',[]);
+
+        // Vraćanje odgovora
+        return response()->json($cart);
+    }
+
+    public function emptyCart(Request $request){
+        $cart = Session::get('cart',[]);
+
+        Session::forget('cart');
+
+        return response()->json(['message'=>'Ispraznili ste svoju korpu']);
+    }
+
+    }
 
 
 
-}
+
+

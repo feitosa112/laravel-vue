@@ -1,5 +1,6 @@
 
 <div class="container-fluid">
+
     <div class="row bg-dark py-1 px-xl-5">
         <div class="col-lg-6 d-none d-lg-block">
             <div class="d-inline-flex align-items-center h-100">
@@ -11,7 +12,7 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-
+                    <a href="" class="nav-item me-2">Cart ({{ count(Session::get('cart', [])) }})</a>
                     <button type="button" class="btn btn-sm btn-warning dropdown-toggle" style="border-radius: 6px" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right sm-bg-dark col-md-warning" id="userDiv">
                         @guest
