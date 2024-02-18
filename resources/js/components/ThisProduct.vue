@@ -227,6 +227,7 @@
             // Napravite objekat sa podacima koje želite poslati
             const formData = {
                 id: this.product.id,
+
                 boutiqueName:this.product.boutique[0].name,
                 color: this.selectedColor,
                 size: this.selectedSize,
