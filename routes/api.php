@@ -41,9 +41,12 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
     Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
     Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
+    Route::post('/cart/delete-product',[ProductController::class,'deleteProductFromCart'])->name('deleteProductFromCart');
 });
 
-
+Route::fallback(function () {
+    return response()->json(['message' => 'Fallback route.'], 404);
+});
 
 Route::get('/user/isLoged',[HomeController::class,'getLogedUser'])->name('isLogedUser');
 

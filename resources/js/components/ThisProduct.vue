@@ -248,7 +248,10 @@
 
             } catch (error) {
                 console.error('Došlo je do greške prilikom slanja forme:', error);
-                this.error = "Popunite sva polja(size,color...)"
+                this.error = "Popunite sva polja(size,color...)";
+                if(error.response.status === 401){
+                    this.error = "Proizvod je vec dodat u korpu"
+                }
             }
         },
 

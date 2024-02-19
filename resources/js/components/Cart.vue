@@ -1,6 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row px-xl-5">
+
             <div class="col-lg-8 table-responsive mb-5">
                 <h3 class="text-center" v-if="cart.length <1">Vasa korpa je trenutno prazna</h3>
 
@@ -8,6 +9,7 @@
                     <table class="table table-light table-borderless table-hover text-center mb-0">
                         <thead class="thead-dark">
                         <tr>
+
                             <th>Products</th>
                             <th>Price</th>
                             <th>Quantity</th>
@@ -21,6 +23,7 @@
 
                         <tbody class="align-middle">
                             <tr v-for="product in cart">
+
                                 <td>{{ product.productName }}</td>
                                 <td>{{ product.price }}</td>
                                 <td></td>
@@ -28,12 +31,22 @@
                                 <td>{{ product.color }}</td>
                                 <td>{{ product.boutiqueName }}</td>
                                 <td>{{ product.price }}</td>
-                                <td>Remove</td>
+                                <td>
+                                    <form @submit.prevent="deleteFromCart(product.productId,product.color,product.size)">
+
+
+                                        <button type="submit" class="badge badge-danger bg-sm">Obrisi</button>
+                                    </form>
+
+                                </td>
+
 
                             </tr>
                         </tbody>
                     </table>
                 </form>
+
+                <div class="alert alert-success" v-if="deleteProductFromCart">{{ deleteProductFromCart }}</div>
             </div>
         </div>
     </div>
@@ -48,6 +61,7 @@
 
 <script>
 import CartLength from './CartLength.vue';
+
 export default {
     components:{CartLength},
 
@@ -55,6 +69,8 @@ export default {
         return {
             cart:[],
             emptyCartMsg:null,
+            deleteProductFromCart:null,
+
 
         }
     },
@@ -83,6 +99,9 @@ export default {
     }
 },
 
+
+
+
 async getCart() {
     try {
         const response = await this.$axios.get(`http://127.0.0.1:8000/api/cart/cart-view`);
@@ -101,7 +120,26 @@ async getCart() {
             console.error('Internal Server Error');
         }
     }
-}
+},
+async deleteFromCart(productId, color, size) {
+    const requestDat = {
+        productId:productId,
+        color:color,
+        size:size
+    }
+        try {
+
+            const response =await this.$axios.post(`http://127.0.0.1:8000/api/cart/delete-product`,requestDat);
+            if (response.status === 200) {
+                this.deleteProductFromCart = response.data.message
+                this.getCart(); // Ažuriranje korpe nakon brisanja proizvoda
+            } else {
+                console.error('Error deleting product from cart. Unexpected response status:', response.status);
+            }
+        } catch (error) {
+            console.error('Error deleting product from cart:', error);
+        }
+    },
     },
 
 

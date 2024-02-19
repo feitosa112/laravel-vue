@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -75,7 +76,11 @@ class ProductController extends Controller
 
         // Dalja logika za dodavanje u korpu
         $cart = Session::get('cart', []);
-
+        foreach ($cart as $item) {
+            if ($item['productId'] == $product->id && $item['size'] == $size && $item['color'] == $color) {
+                return response()->json(['message' => 'Proizvod već u korpi'], 401);
+            }
+        }
         // Dodavanje novog proizvoda u korpu
         $cart[] = [
             'productId'=>$product->id,
@@ -109,6 +114,51 @@ class ProductController extends Controller
 
         return response()->json(['message'=>'Ispraznili ste svoju korpu']);
     }
+
+
+
+public function deleteProductFromCart(Request $request) {
+
+        $requestData = $request->all();
+        $productId = $requestData['productId'];
+        $color = $requestData['color'];
+        $size = $requestData['size'];
+
+        $cart = Session::get('cart', []);
+
+    try {
+        // Uzimanje parametara iz tela zahteva
+
+
+        Log::info("Deleting product from cart: ProductId: $productId, Color: $color, Size: $size");
+
+        // Dobijanje korpe iz sesije
+
+
+        foreach ($cart as $index => $product) {
+            if ($product['productId'] === $productId && $product['color'] === $color && $product['size'] === $size) {
+                unset($cart[$index]);
+
+            }
+        }
+
+
+            // Ažuriranje korpe u sesiji
+            Session::put('cart', $cart);
+            return response()->json(['message' => 'Izbrisali ste proizvod iz korpe'],200);
+
+    } catch (\Exception $e) {
+        // Dodajte informacije o grešci
+        $errorMessage = 'Error deleting product from cart: ' . $e->getMessage();
+        Log::error($errorMessage);
+
+        // Vrati odgovor sa statusom 500 i dodatnim informacijama o grešci
+        return response()->json(['error' => $errorMessage], 500);
+    }
+}
+
+
+
 
     }
 

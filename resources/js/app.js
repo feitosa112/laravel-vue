@@ -27,6 +27,7 @@ const router = createRouter({
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
         {path:'/cart/cart-view',component:Cart,name:'cartView'},
+        // {path:'/cart/delete-product/:productId/:color/:size',redirect:{name:'cartView'},name:'deleteProductFromCart'},
 
 
 
