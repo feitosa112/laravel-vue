@@ -13,7 +13,8 @@ class ProductsModel extends Model
         'boutique_id',
         'category_id',
         'subcategory_id',
-        'boutique_id'
+        'boutique_id',
+        'cart_quantity',
     ];
     use HasFactory;
 

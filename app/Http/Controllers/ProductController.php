@@ -88,7 +88,9 @@ class ProductController extends Controller
             'boutiqueName'=>$boutiqueName,
             'color' => $color,
             'size' => $size,
-            'price'=>$product->price
+            'price'=>$product->price,
+            'cart_quantity'=>$product->cart_quantity,
+            'cart_total'=>$product->cart_total
         ];
 
         // Čuvanje ažurirane korpe u sesiji

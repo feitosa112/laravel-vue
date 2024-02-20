@@ -26,11 +26,25 @@
 
                                 <td>{{ product.productName }}</td>
                                 <td>{{ product.price }}</td>
-                                <td></td>
+                                <td>
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-minus" @click.prevent="minus(product)" >
+                                        <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm bg-secondary border-0 text-center" :value="product.cart_quantity">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-primary btn-plus" @click.prevent="plus(product)" >
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                </td>
                                 <td>{{ product.size }}</td>
                                 <td>{{ product.color }}</td>
                                 <td>{{ product.boutiqueName }}</td>
-                                <td>{{ product.price }}</td>
+                                <td>{{ product.cart_quantity * product.price }}</td>
                                 <td>
                                     <form @submit.prevent="deleteFromCart(product.productId,product.color,product.size)">
 
@@ -56,7 +70,7 @@
     <form @submit.prevent="cartEmpty">
         <button class="btn btn-info" type="submit">Empty cart</button>
     </form>
-    <div class="alert alert-insfo" v-if="emptyCartMsg">{{ emptyCartMsg }}</div>
+    <div class="alert alert-success" v-if="emptyCartMsg">{{ emptyCartMsg }}</div>
 </template>
 
 <script>
@@ -72,6 +86,7 @@ export default {
             deleteProductFromCart:null,
 
 
+
         }
     },
     mounted(){
@@ -83,7 +98,23 @@ export default {
         cart: this.cart
     };
 },
+
     methods:{
+        plus(product){
+            product.cart_quantity +=1;
+            product.cart_total = product.price*product.cart_quantity;
+
+        },
+        minus(product){
+
+            if(product.cart_quantity > 1){
+                product.cart_quantity -= 1;
+            product.cart_total = product.price*product.cart_quantity;
+
+            }
+        },
+
+
         async cartEmpty() {
     try {
         const response = await axios.post(`http://127.0.0.1:8000/api/cart/empty-cart`);
@@ -105,6 +136,13 @@ export default {
 async getCart() {
     try {
         const response = await this.$axios.get(`http://127.0.0.1:8000/api/cart/cart-view`);
+
+        // if(response.data.length > 0){
+        //     response.data.foreach(product => {
+        //         this.price = product.price;
+        //     })
+        // }
+
         console.log('API Response:', response.data);
         this.cart = response.data;
     } catch (error) {
