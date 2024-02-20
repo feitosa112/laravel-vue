@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid">
         <div class="row px-xl-5">
+            <h3 class="text-center" v-if="cart.length <1">Vasa korpa je trenutno prazna</h3>
+            <form action="" v-else>
 
-            <div class="col-lg-8 table-responsive mb-5">
-                <h3 class="text-center" v-if="cart.length <1">Vasa korpa je trenutno prazna</h3>
+            <div class="col-lg-8 col-sm-12 table-responsive mb-5" >
 
-                <form action="" v-else>
                     <table class="table table-light table-borderless table-hover text-center mb-0">
                         <thead class="thead-dark">
                         <tr>
@@ -44,7 +44,7 @@
                                 <td>{{ product.size }}</td>
                                 <td>{{ product.color }}</td>
                                 <td>{{ product.boutiqueName }}</td>
-                                <td>{{ product.cart_quantity * product.price }}</td>
+                                <td>{{ (product.cart_quantity * product.price).toFixed(2) }}</td>
                                 <td>
                                     <form @submit.prevent="deleteFromCart(product.productId,product.color,product.size)">
 
@@ -58,10 +58,35 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+            <div class="col-lg-3 col-sm-12">
+
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
+                <div class="bg-light p-30 mb-5">
+                    <div class="border-bottom pb-2">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>Subtotal</h6>
+                            <h6>{{ totalSum.toFixed(2) }}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">8</h6>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5>Total</h5>
+                            <h5>{{ (totalSum + 8).toFixed(2) }}</h5>
+                        </div>
+                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Proceed To Checkout</button>
+                    </div>
+                </div>
+            </div>
                 </form>
 
+
                 <div class="alert alert-success" v-if="deleteProductFromCart">{{ deleteProductFromCart }}</div>
-            </div>
         </div>
     </div>
 
@@ -84,7 +109,7 @@ export default {
             cart:[],
             emptyCartMsg:null,
             deleteProductFromCart:null,
-
+            totalSum:0,
 
 
         }
@@ -103,16 +128,23 @@ export default {
         plus(product){
             product.cart_quantity +=1;
             product.cart_total = product.price*product.cart_quantity;
-
+            this.updateTotalPrice();
         },
         minus(product){
 
             if(product.cart_quantity > 1){
                 product.cart_quantity -= 1;
             product.cart_total = product.price*product.cart_quantity;
-
+                this.updateTotalPrice();
             }
         },
+
+
+        updateTotalPrice() {
+        this.totalSum = this.cart.reduce((total, product) => {
+            return total + product.price * product.cart_quantity;
+        }, 0);
+    },
 
 
         async cartEmpty() {
@@ -144,7 +176,13 @@ async getCart() {
         // }
 
         console.log('API Response:', response.data);
-        this.cart = response.data;
+        this.cart = response.data.map(product => ({
+    ...product,
+    cart_quantity: 1,
+    cart_total: product.price,
+
+}));
+this.updateTotalPrice();
     } catch (error) {
         console.error('Error cart view:', error.message);
         console.error('Response status:', error.response?.status);
