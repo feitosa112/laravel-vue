@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductsModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
@@ -158,6 +159,23 @@ public function deleteProductFromCart(Request $request) {
         return response()->json(['error' => $errorMessage], 500);
     }
 }
+
+    public function allProducts(){
+        DB::listen(function ($query) {
+            Log::info($query->sql, $query->bindings, $query->time);
+        });
+        try {
+            $products = ProductsModel::with('boutique')->get();
+
+            if($products){
+                return response()->json($products)->header('Content-Type', 'application/json; charset=utf-8');
+            }else{
+                return response()->json(['message'=>'nisu pronadjeni proizvodi']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['error'=>$e->getMessage()],500);
+        }
+    }
 
 
 

@@ -17,4 +17,5 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Route::get('/products/all-products',[ProductController::class,'allProducts'])->name('allProducts');
 

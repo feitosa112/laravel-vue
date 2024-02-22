@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,12 +29,11 @@ Route::controller(BoutiquesController::class)->group(function(){
 
 
 });
-Route::controller(ProductController::class)->group(function(){
-    Route::get('/products/{subcategory_id}','getProductsWithSubCategory')->name('getProductsWithSubCategory');
-    Route::get('products/{category_id}','getProductsWithCategory')->name('getProductsWithCategory');
-    Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
-
-
+Route::prefix('products')->group(function () {
+    Route::get('/sub-category/{subcategory_id}', [ProductController::class, 'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
+    Route::get('/category/{category_id}', [ProductController::class, 'getProductsWithCategory'])->name('getProductsWithCategory');
+    Route::get('/product/{id}/{productName}', [ProductController::class, 'getThisProduct'])->name('thisProduct');
+    Route::get('/all-products', [ProductController::class, 'allProducts'])->name('allProducts');
 });
 Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
 

@@ -13,6 +13,7 @@ import ProductsWithSubCategory from "./components/ProductsWithSubCategory.vue";
 import ProductsWithCategory from "./components/ProductsWithCategory.vue";
 import ThisProduct from "./components/ThisProduct.vue";
 import Cart from "./components/Cart.vue"
+import AllProducts from './components/AllProducts.vue'
 
 
 const app = createApp(App)
@@ -27,8 +28,7 @@ const router = createRouter({
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
         {path:'/cart/cart-view',component:Cart,name:'cartView'},
-        // {path:'/cart/delete-product/:productId/:color/:size',redirect:{name:'cartView'},name:'deleteProductFromCart'},
-
+        {path:'/products/all-products',component:AllProducts,name:'allProducts'}
 
 
 

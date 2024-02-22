@@ -212,7 +212,7 @@
             return {
                 product:{},
                 cart:[],
-
+                productName:null,
                 message:null,
                 error:null,
                 productInCart:false
@@ -260,9 +260,12 @@
                 const id = this.$route.params.id;
 
                 try {
-                    const response = await this.$axios.get(`http://127.0.0.1:8000/api/product/${id}/${productName}`);
+                    const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/product/${id}/${productName}`);
                     console.log('API Response:', response.data);
                     this.product = response.data;
+                    this.productName = response.data.name;
+                    document.title = this.productName;
+
                 }catch(error){
                     console.error('Error fetching product details:', error.message);
                     console.error('Response status:', error.response.status);

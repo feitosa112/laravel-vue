@@ -49,10 +49,7 @@
                     </router-link>
 
                 </div>
-
-
-
-            </div>
+        </div>
 
         </div>
 
@@ -67,6 +64,7 @@
     data() {
       return {
         boutique: {},
+        boutiqueName:null
 
       };
     },
@@ -84,6 +82,9 @@
         console.log('API Response:', response.data);
         // Obrada podataka kada je status 200 OK
         this.boutique = response.data;
+        this.boutiqueName = response.data.name
+        document.title = this.boutiqueName;
+
     } catch (error) {
         console.error('Error fetching boutique details:', error.message);
         console.error('Response status:', error.response.status);

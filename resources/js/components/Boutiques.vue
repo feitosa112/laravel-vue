@@ -23,7 +23,7 @@
                                     <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
                                 </div>
 
-                                <div class="card-body naslov mt-2">
+                                <div class="card-body naslov">
                                     <h4 class="text-fluid text-center">{{ boutique.name }}</h4>
                                 </div>
 
@@ -77,6 +77,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
       };
     },
     mounted() {
+    document.title="Butici Banja Luka"
       this.fetchBoutiques();
     },
     methods: {

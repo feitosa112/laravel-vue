@@ -60,10 +60,16 @@
                     </table>
                 </div>
 
-            <div class="col-lg-3 col-sm-12">
+
+                <div class="alert alert-success" v-if="deleteProductFromCart">{{ deleteProductFromCart }}</div>
+
+            <div class="col-lg-8 col-sm-12">
 
                 <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Cart Summary</span></h5>
+
                 <div class="bg-light p-30 mb-5">
+                    <input type="text" placeholder="Name" class="form-control">
+                    <input type="text" placeholder="Surname" class="form-control mt-2">
                     <div class="border-bottom pb-2">
                         <div class="d-flex justify-content-between mb-3">
                             <h6>Subtotal</h6>
@@ -86,7 +92,6 @@
                 </form>
 
 
-                <div class="alert alert-success" v-if="deleteProductFromCart">{{ deleteProductFromCart }}</div>
         </div>
     </div>
 
