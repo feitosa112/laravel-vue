@@ -13,7 +13,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <router-link :to="{name:'boutiques-page'}" class="nav-item nav-link">Home</router-link>
+                            <router-link :to="{name:'boutiques-page'}" class="nav-item nav-link">Butici</router-link>
 
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <a href="" class="nav-item nav-link">Contact</a>
-                            <router-link :to="{name:'allProducts'}" class="nav-item nav-link">All Products</router-link>
+                            <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodis</router-link>
 
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-lg-block">

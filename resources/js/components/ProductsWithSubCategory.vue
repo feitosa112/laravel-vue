@@ -57,7 +57,7 @@ export default {
     const subcategory_id = this.$route.params.subcategory_id;
 
     try {
-        const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/${subcategory_id}`);
+        const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/sub-category/${subcategory_id}`);
         console.log('API Response:', response.data);
         // Obrada podataka kada je status 200 OK
         this.products = response.data;
@@ -80,9 +80,15 @@ export default {
 getAbsoluteImagePath(imageName) {
       return `http://127.0.0.1:8000/images/${imageName}`;
     },
-    removeSpace(name){
+    removeSpace(name) {
+    // Provera da li je name definisan i da li ima metodu replace
+    if (name && typeof name.replace === 'function') {
         return name.replace(/\s+/g, "-");
-    },
+    } else {
+        // Ako name nije definisan ili nema metodu replace, vratite neku podrazumevanu vrednost ili prazan string
+        return "";
+    }
+},
     }
 }
 </script>

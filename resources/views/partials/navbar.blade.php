@@ -12,7 +12,7 @@
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                    <a href="" class="nav-item me-2">Cart ({{ count(Session::get('cart', [])) }})</a>
+
                     <button type="button" class="btn btn-sm btn-warning dropdown-toggle" style="border-radius: 6px" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right sm-bg-dark col-md-warning" id="userDiv">
                         @guest
@@ -49,16 +49,7 @@
 
 
             </div>
-            <div class="d-inline-flex align-items-center d-block d-lg-none">
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-heart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-                <a href="" class="btn px-0 ml-2">
-                    <i class="fas fa-shopping-cart text-dark"></i>
-                    <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                </a>
-            </div>
+
         </div>
     </div>
     <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">

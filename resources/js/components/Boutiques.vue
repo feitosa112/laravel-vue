@@ -5,70 +5,40 @@
     <div>
       <div class="container-fluid">
         <div class="row">
-            <div class="col-1 col-lg-2 col-sm-1 d-none d-sm-block">
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-
-            </div>
-            <div class="col-lg-8">
+            <Najprodavaniji/>
+            <div class="col-sm-6 col-md-6 col-lg-8">
                 <div class="row">
-                    <div class="col-6 col-md-6 col-sm-6 col-lg-4 mb-2" v-for="boutique in boutiques" :key="boutique.id" style="border-right: 1px dotted gray;">
-                            <div class="card" id="card" style="border-radius: 5%;box-shadow:0px 0px 5px rgba(0,0,0,0.5);">
-                                <div class="card-header">
-                                    <img :src="getAbsoluteImagePath(boutique.image)" alt="" style="border-radius: 5px;" class="img-fluid">
-                                </div>
-
-                                <div class="card-body naslov">
-                                    <h4 class="text-fluid text-center">{{ boutique.name }}</h4>
-                                </div>
-
-                                <div class="card-footer podnaslov">
-                                    <p class="float-start">
-                                        <small>{{ boutique.address }}</small>
-                                    </p>
-
-                                    <p class="float-end podnaslov">
-                                        <small v-if="boutique.phone != null">{{ boutique.phone }}</small>
-                                    </p>
-                                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
-
-                                            <button class="btn btn-primary form-control" id="butik-submit" style="border-radius: 5px;">Pogledaj</button>
-                                        </router-link>
-
-                                </div>
-                            </div>
-
-
+                    <div class="col-6 col-md-6 col-sm-6 col-lg-3 mb-2" v-for="boutique in boutiques" :key="boutique.id">
+                <div class="card mb-2" id="card" style="border-radius: 5%;box-shadow:0px 0px 5px rgba(0,0,0,0.5);">
+                    <img :src="getAbsoluteImagePath(boutique.image)" class="card-img-top" alt="Slika" style="object-fit: cover; height: 60%;">
+                    <div class="card-body naslov" style="margin-top: -20px;">
+                        <h4 class="card-title text-center">{{ boutique.name }}</h4>
+                        <small class="text-muted float-end">{{ boutique.address }}</small>
+                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
+                            <button class="btn btn-primary form-control" id="butik-submit" style="border-radius: 5px;">Pogledaj</button>
+                        </router-link>
                     </div>
+                </div>
+                </div>
                 </div>
 
             </div>
-            <div class="col-1 col-lg-2 col-sm-1 d-none d-sm-block">
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-                <p>dddd</p>
-
-            </div>
-
+            <Najnoviji/>
         </div>
+
+        <Categories/>
       </div>
-
     </div>
-
   </template>
 
 <!-- U scriptu imamo metodu fetchBoutiques u kojoj dobijamo niz objekata(butika) u varijablu boutiques,
 pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
   <script>
+  import Najprodavaniji from "./NajprodavanijiProizvodi.vue";
+  import Najnoviji from "./NajnovijiProizvodi.vue";
+  import Categories from "./Categories-home.vue"
   export default {
+    components:{Najprodavaniji,Najnoviji,Categories},
     data() {
       return {
 
@@ -77,8 +47,8 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
       };
     },
     mounted() {
-    document.title="Butici Banja Luka"
       this.fetchBoutiques();
+      document.title = "Butici Banja Luka"
     },
     methods: {
       async fetchBoutiques() {
