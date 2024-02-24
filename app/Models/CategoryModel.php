@@ -10,6 +10,7 @@ class CategoryModel extends Model
     protected $table='category';
     protected $fillable = [
         'name',
+        'image'
 
     ];
     use HasFactory;

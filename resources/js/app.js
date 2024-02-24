@@ -16,6 +16,7 @@ import Cart from "./components/Cart.vue"
 import AllProducts from './components/AllProducts.vue'
 
 
+
 const app = createApp(App)
 
 const router = createRouter({
@@ -28,7 +29,8 @@ const router = createRouter({
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
         {path:'/cart/cart-view',component:Cart,name:'cartView'},
-        {path:'/products/all-products',component:AllProducts,name:'allProducts'}
+        {path:'/products/all-products',component:AllProducts,name:'allProducts'},
+
 
 
 
@@ -42,6 +44,7 @@ app.component('boutique-page',BoutiquePage)
 // app.component('podnavbar',PodNavbar)
 app.component('ProductsWithSubCategory',ProductsWithSubCategory)
 app.component('ProductsWithCategory',ProductsWithCategory)
+
 
 
 

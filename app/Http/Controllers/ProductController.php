@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductsModel;
+use App\Models\SubcategoryModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -28,10 +29,14 @@ class ProductController extends Controller
     public function getProductsWithCategory($category_id){
         try{
             $products = ProductsModel::where('category_id',$category_id)->get();
+            $subCategory = SubcategoryModel::where('category_id',$category_id)->get();
             if (!$products) {
                 return response()->json(['message' => 'Products not found'], 404);
             }else{
-                return response()->json($products);
+                return response()->json([
+                    'products' => $products,
+                    'subCategory' => $subCategory,
+                ]);
 
             }
         }catch(\Exception $e){

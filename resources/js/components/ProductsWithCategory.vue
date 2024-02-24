@@ -1,8 +1,10 @@
 <template>
+    <SubcategoryInCategory :subCategory="subCategory"></SubcategoryInCategory>
    <h3 v-if="products.length === 0">Trenutno nema proizvoda za ovu kategoriju</h3>
+
    <div class="container-fluid" v-else>
     <div class="row">
-            <div class="ol-6 col-md-6 col-sm-6 col-lg-4 mb-2" v-for="product in products">
+            <div class="col-4 col-md-4 col-sm-4 col-lg-3 mb-2" v-for="product in products">
                 <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
                         <div class="card" id="card" style="max-width: 300px;box-shadow:5px 5px 5px gray">
                             <div class="card-header">
@@ -36,10 +38,13 @@
 </template>
 
     <script>
+    import SubcategoryInCategory from './SubCategoryInCategory.vue'
     export default {
+        components :{SubcategoryInCategory},
         data(){
             return {
-                products:[]
+                products:[],
+                subCategory:[],
             }
         },
         mounted(){
@@ -57,7 +62,9 @@
             const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/category/${category_id}`);
             console.log('API Response:', response.data);
             // Obrada podataka kada je status 200 OK
-            this.products = response.data;
+            this.products = response.data.products;
+            this.subCategory = response.data.subCategory;
+
         } catch (error) {
             console.error('Error Products found:', error.message);
             console.error('Response status:', error.response.status);

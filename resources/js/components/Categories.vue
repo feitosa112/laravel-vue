@@ -27,10 +27,14 @@ Ovu komponentu ukljucujemo u PodNavbar.vue komponentu -->
 </template>
 
 <script>
+
+
 export default {
     data(){
         return {
-            allCategories:[]
+            allCategories:[],
+            display:false,
+            name:'sinisa'
         }
     },
     mounted() {
@@ -44,6 +48,7 @@ export default {
           const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
           this.allCategories = odg.data;
           console.log(this.allCategories);
+
         } catch (error) {
           console.error('Error categories', error);
         }

@@ -27,6 +27,7 @@
         </div>
 
         <Categories/>
+
       </div>
     </div>
   </template>
