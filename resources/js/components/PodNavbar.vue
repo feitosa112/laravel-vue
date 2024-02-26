@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid bg-dark mb-30">
         <div class="row px-xl-5">
-            <categories />
+            <Categories/>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                     <a href="" class="text-decoration-none d-block d-lg-none">
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <a href="" class="nav-item nav-link">Contact</a>
-                            <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodis</router-link>
+                            <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodi</router-link>
 
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-lg-block">
@@ -55,6 +55,8 @@ export default {
       componentKey: 0,
     };
   },
+
+
 };
 
 </script>

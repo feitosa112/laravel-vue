@@ -3,54 +3,115 @@
 <template>
     <div class="container-fluid" >
 
-        <div class="row" style="background-color: #FFD333;">
-            <div class="col-4" style="border-right: 1px dotted gray;">
+         <!-- Carousel Start -->
+    <div class="container-fluid mb-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item position-relative active" style="height: 430px;">
+                            <img class="position-absolute w-100 h-100" :src="getAbsoluteImagePath(boutique.name,boutique.image)" style="object-fit: cover;">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ boutique.name }}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{ boutique.description }}</p>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
             </div>
-            <div class="col-4" style="color: #343a40;" >
 
-                <h1 class="text-center" style="letter-spacing: 5px;">{{ boutique.name }}</h1>
-                <p class="text-center">{{ boutique.address }}</p>
-                <p class="text-center">{{ boutique.email }}</p>
-                <p class="text-center">{{ boutique.phone }}</p>
-
-            </div>
-            <div class="col-4" style="border-left: 1px dotted gray;">
-
+            <div class="col-lg-4 ">
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" :src="getAbsoluteImagePath(boutique.name,boutique.image2)" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save 20%</h6>
+                        <h3 class="text-white mb-3">Special Offer</h3>
+                        <a href="" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
+                <div class="product-offer mb-30" style="height: 200px;">
+                    <img class="img-fluid" :src="getAbsoluteImagePath(boutique.name,boutique.image2)" alt="">
+                    <div class="offer-text">
+                        <h6 class="text-white text-uppercase">Save 20%</h6>
+                        <h3 class="text-white mb-3">Special Offer</h3>
+                        <a href="" class="btn btn-primary">Shop Now</a>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <!-- Carousel End -->
 
-        <div class="row" style="height: 35wh;">
-                <div class="col-6 col-md-6 col-sm-6 col-lg-4 mb-2"  v-for="product in boutique.product">
-                    <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
-                        <div class="card" id="card" style="max-width: 300px;box-shadow:5px 5px 5px gray">
-                            <div class="card-header">
-                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
-                                <div class="product-img position-relative overflow-hidden">
+    <!-- Shop Product Start -->
+    <div class="col-lg-9 col-md-8">
+                <div class="row pb-3">
+                    <div class="col-12 pb-1">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+
+                            <div class="ml-2">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">Latest</a>
+                                        <a class="dropdown-item" href="#">Popularity</a>
+                                        <a class="dropdown-item" href="#">Best Rating</a>
+                                    </div>
+                                </div>
+                                <div class="btn-group ml-2">
+                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">10</a>
+                                        <a class="dropdown-item" href="#">20</a>
+                                        <a class="dropdown-item" href="#">30</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1" v-for="product in boutique.product">
+                        <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(boutique.name,product.image1)" alt="">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                 </div>
-                                </div>
                             </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    <h5>{{ product.price }} KM</h5><h6 class="text-muted ml-2" v-if="product.old_price != 0.00"><del>{{ product.old_price }}</del></h6>
+                                </div>
 
-                        <div class="card-body" style="padding: 0">
-                            <h3 class="card-title naslov">{{ product.name }}</h3>
-                            <h4 class="card-subtitle mb-2 float-start naslov" style="color: #65B741">{{ product.price }}KM</h4>
-                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=null" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
-                        </div>
-
-                        <div class="card-footer" style="padding: 2px">
-                            <a href="" style="border-radius: 5px" class="btn btn-primary btn-sm float-start mobile-button">Kupi</a>
-                        </div>
-
+                            </div>
                         </div>
                     </router-link>
+                    </div>
 
+
+                    <div class="col-12">
+                        <nav>
+                          <ul class="pagination justify-content-center">
+                            <!-- <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li> -->
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                          </ul>
+                        </nav>
+                    </div>
                 </div>
-        </div>
-
+            </div>
+            <!-- Shop Product End -->
         </div>
 
 
@@ -127,8 +188,8 @@ addToCart(product) {
 
 
 // postavljena apsolutna putanja za slike
-getAbsoluteImagePath(imageName) {
-      return `http://127.0.0.1:8000/images/${imageName}`;
+getAbsoluteImagePath(boutiqueName,imageName) {
+      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
     },
     // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
     removeSpace(name){
@@ -172,7 +233,7 @@ getAbsoluteImagePath(imageName) {
         font-size: 5px;
         padding: 0;
         margin-left: -3px;
-        line-height: 0.5;
+        /* line-height: 0.5; */
     }
     small {
         font-size: 7px;
@@ -193,6 +254,7 @@ p{
     font-weight: 900;
     margin-top: -20px;
     line-height: 0.5;
+
 }
 
 </style>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BoutiquesModel;
+use App\Models\ProductsModel;
 use Illuminate\Http\Request;
 
 class BoutiquesController extends Controller
@@ -10,7 +11,11 @@ class BoutiquesController extends Controller
     public function allBoutiques(){
         try{
             $allBoutiques = BoutiquesModel::all();
-            return response()->json($allBoutiques);
+            $featuredProducts = ProductsModel::with('boutique')->where('featured',true)->get();
+            return response()->json([
+                'allBoutiques'=>$allBoutiques,
+                'featuredProducts'=>$featuredProducts
+            ]);
 
         }catch(\Exception $e){
             dd($e->getMessage());

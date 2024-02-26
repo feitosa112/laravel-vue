@@ -24,7 +24,7 @@ const router = createRouter({
     mode:'history',
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
-        {path:'/products/:subcategory_id',component:ProductsWithSubCategory,name:'getProductsWithSubCategory'},
+        { path: '/products/sub-category/:subcategory_id/detail', component: ProductsWithSubCategory, name: 'getProductsWithSubCategory'},
         {path:'/products/:category_id',component:ProductsWithCategory,name:'getProductsWithCategory'},
         {path:'/product/:id/:productName',component:ThisProduct,name:'thisProduct'},
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},

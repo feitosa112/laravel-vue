@@ -104,10 +104,10 @@
 </template>
 
 <script>
-import CartLength from './CartLength.vue';
+// import CartLength from './CartLength.vue';
 
 export default {
-    components:{CartLength},
+    // components:{CartLength},
 
     data(){
         return {
@@ -122,12 +122,12 @@ export default {
     mounted(){
         this.getCart()
     },
-    provide() {
-    console.log('Providing cart:', this.cart);
-    return {
-        cart: this.cart
-    };
-},
+//     provide() {
+//     console.log('Providing cart:', this.cart);
+//     return {
+//         cart: this.cart
+//     };
+// },
 
     methods:{
         plus(product){

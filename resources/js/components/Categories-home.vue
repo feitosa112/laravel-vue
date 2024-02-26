@@ -6,7 +6,7 @@
         <div class="row px-xl-5 pb-3">
 
 
-            <div class="col-lg-4 col-md-4 col-sm-4" v-for="category in allCategories">
+            <div class="col-lg-4 col-md-4 col-sm-4" v-for="category in allCat">
              <input type="hidden" name="id" :value="category.id">
 
             <router-link :to="{name:'getProductsWithCategory',params:{category_id:category.id}}">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="flex-fill pl-3">
                             <h6>{{ category.name }}</h6>
-                            <small class="text-body">100 Products</small>
+                            <small class="text-body">{{ getProductCount(category.id) }} Proizvoda</small>
                         </div>
                     </div>
 
@@ -36,26 +36,38 @@
 export default {
     data(){
         return {
-            allCategories:[]
+            allCat:[],
+            productsInCategory:[],
+
         }
     },
     mounted() {
-        console.log('Mounted start...');
+        console.log('Mounted cat-home start...');
       this.getAllCategories();
-      console.log('Mounted end...');
+      console.log('Mounted cat-home end...');
     },
 
   methods:{
     async getAllCategories() {
         try {
           const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
-          this.allCategories = odg.data;
-          console.log(this.allCategories);
+          this.allCat = odg.data.allCategories;
+          this.productsInCategory = odg.data.productsInCategory;
+
+          console.log('AllCat:',this.allCat);
 
         } catch (error) {
           console.error('Error categories', error);
         }
       },
+      getProductCount(categoryId) {
+        const productsForCategory = this.productsInCategory.filter(product => product.category_id === categoryId);
+             return productsForCategory.length;
+
+
+
+
+    },
     getAbsoluteImagePath(imageName) {
       return `http://127.0.0.1:8000/images/${imageName}`;
     },

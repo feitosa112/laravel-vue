@@ -14,7 +14,7 @@ import podnavbar from "./components/PodNavbar.vue"
 
 
 export default {
-  components: { Footer, podnavbar },
+  components: { Footer, podnavbar},
 
   // ...
 };

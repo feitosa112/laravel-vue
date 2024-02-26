@@ -8,7 +8,7 @@
                 <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
                         <div class="card" id="card" style="max-width: 300px;box-shadow:5px 5px 5px gray">
                             <div class="card-header">
-                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
+                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.boutique[0].nameproduct.image1)" alt="">
                                 <div class="product-img position-relative overflow-hidden">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
@@ -80,9 +80,9 @@
             }
         }
     },
-    getAbsoluteImagePath(imageName) {
-          return `http://127.0.0.1:8000/images/${imageName}`;
-        },
+    getAbsoluteImagePath(boutiqueName,imageName) {
+        return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+      },
         removeSpace(name) {
     // Provera da li je name definisan i da li ima metodu replace
     if (name && typeof name.replace === 'function') {

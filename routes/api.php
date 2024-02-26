@@ -30,7 +30,7 @@ Route::controller(BoutiquesController::class)->group(function(){
 
 });
 Route::prefix('products')->group(function () {
-    Route::get('/sub-category/{subcategory_id}', [ProductController::class, 'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
+    Route::get('/sub-category/{subcategory_id}/detail', [ProductController::class, 'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
     Route::get('/category/{category_id}', [ProductController::class, 'getProductsWithCategory'])->name('getProductsWithCategory');
     Route::get('/product/{id}/{productName}', [ProductController::class, 'getThisProduct'])->name('thisProduct');
     Route::get('/all-products', [ProductController::class, 'allProducts'])->name('allProducts');
