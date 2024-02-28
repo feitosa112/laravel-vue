@@ -8,7 +8,7 @@
                     <router-link :to="{name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name)}}" style="text-decoration: none;">
 
                             <div class="card-header">
-                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.image1)" alt="">
+                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.boutique[0].name,product.image1)" alt="">
                                 <div class="product-img position-relative overflow-hidden">
 
                                 </div>
@@ -17,7 +17,7 @@
                         <div class="card-body" style="padding: 0">
                             <h3 class="card-title naslov">{{ product.name }}</h3>
                             <h4 class="card-subtitle mb-2 float-start naslov" style="color: #65B741">{{ product.price }}KM</h4>
-                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=null" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
+                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=0" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
                         </div>
                     </router-link>
                         <div class="card-footer" style="padding: 2px">
@@ -57,8 +57,8 @@ export default {
           console.error('Error fetching products:', error);
         }
         },
-        getAbsoluteImagePath(imageName) {
-      return `http://127.0.0.1:8000/images/${imageName}`;
+        getAbsoluteImagePath(boutiqueName,imageName) {
+      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
     },
     removeSpace(name){
         return name.replace(/\s+/g, "-");

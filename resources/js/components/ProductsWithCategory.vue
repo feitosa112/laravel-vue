@@ -8,7 +8,7 @@
                 <router-link :to="{ name: 'thisProduct', params: { id: product.id,productName:removeSpace(product.name) }}" style="text-decoration: none;">
                         <div class="card" id="card" style="max-width: 300px;box-shadow:5px 5px 5px gray">
                             <div class="card-header">
-                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.boutique[0].nameproduct.image1)" alt="">
+                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.boutique[0].name,product.image1)" alt="">
                                 <div class="product-img position-relative overflow-hidden">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
@@ -22,7 +22,7 @@
                         <div class="card-body" style="padding: 0">
                             <h3 class="card-title naslov">{{ product.name }}</h3>
                             <h4 class="card-subtitle mb-2 float-start naslov" style="color: #65B741">{{ product.price }}KM</h4>
-                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=null" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
+                            <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price !=0.00" style="color: #B80000"><del>{{product.old_price}} KM</del></small>
                         </div>
 
                         <div class="card-footer" style="padding: 2px">
@@ -38,7 +38,8 @@
 </template>
 
     <script>
-    import SubcategoryInCategory from './SubCategoryInCategory.vue'
+    import SubcategoryInCategory from './SubCategoryInCategory.vue';
+
     export default {
         components :{SubcategoryInCategory},
         data(){

@@ -3,6 +3,7 @@
 use App\Http\Controllers\BoutiquesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,7 +43,10 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
     Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
     Route::post('/cart/delete-product',[ProductController::class,'deleteProductFromCart'])->name('deleteProductFromCart');
+Route::post('/order/send-order',[OrderController::class,'sendOrder'])->name('sendOrder');
+
 });
+
 
 Route::fallback(function () {
     return response()->json(['message' => 'Fallback route.'], 404);
@@ -53,3 +57,6 @@ Route::get('/user/isLoged',[HomeController::class,'getLogedUser'])->name('isLoge
 Route::get('/{any}', function () {
     return view('home');
 })->where('any', '.*');
+
+
+
