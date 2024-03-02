@@ -26,6 +26,8 @@ class ProductController extends Controller
         }
     }
 
+
+
     public function getProductsWithCategory($category_id){
         try{
             $products = ProductsModel::with('boutique')->where('category_id',$category_id)->get();
@@ -181,6 +183,7 @@ public function deleteProductFromCart(Request $request) {
             return response()->json(['error'=>$e->getMessage()],500);
         }
     }
+
 
 
 

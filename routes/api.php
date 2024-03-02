@@ -37,18 +37,20 @@ Route::prefix('products')->group(function () {
     Route::get('/product/{id}/{productName}', [ProductController::class, 'getThisProduct'])->name('thisProduct');
     Route::get('/all-products', [ProductController::class, 'allProducts'])->name('allProducts');
 });
-Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
+    Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
+    Route::get('/category/sub-cat/{id}',[CategoryController::class,'allSubCategories'])->name('allSubCategories');
 
-Route::group(['middleware' => 'web'], function () {
-    Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
-    Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
-    Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
-    Route::post('/cart/delete-product',[ProductController::class,'deleteProductFromCart'])->name('deleteProductFromCart');
+    Route::get('/user/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
 
-    Route::post('/order/send-order',[OrderController::class,'sendOrder'])->name('sendOrder');
-    Route::get('/products/theBestSellingsProduct',[OrderController::class,'theBestSellingProducts'])->name('theBestSellingProducts');
+    Route::group(['middleware' => 'web'], function () {
+        Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
+        Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
+        Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
+        Route::post('/cart/delete-product',[ProductController::class,'deleteProductFromCart'])->name('deleteProductFromCart');
 
-});
+        Route::post('/order/send-order',[OrderController::class,'sendOrder'])->name('sendOrder');
+        Route::get('/products/theBestSellingsProduct',[OrderController::class,'theBestSellingProducts'])->name('theBestSellingProducts');
+    });
 
 
 Route::fallback(function () {

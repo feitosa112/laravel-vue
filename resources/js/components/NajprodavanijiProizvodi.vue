@@ -2,14 +2,15 @@
     <div class="col-2 col-sm-12 col-lg-2 col-md-12 d-none d-lg-block">
                 <small>Najprodavaniji proizvodi</small>
                 <div class="row mb-2" v-for="product in theBestSellingsProduct" :key="product.product.id">
-                    {{  }}
+                    <router-link :to="{name:'thisProduct',params:{id:product.product.id,productName: removeSpace(product.product.name)}}">
                     <div class="col-3">
-                        <img :src="getAbsoluteImagePath(product.product.boutique[0].name,product.product.image1)" style="height: 40px;" alt="">
+                        <img :src="getAbsoluteImagePath(product.product.boutique[0].name,product.product.image1)" style="height: 30px;" alt="">
                     </div>
                     <div class="col-8">
-                        <small class="float-start" style="margin-left: 8px;">{{ product.product.name }}</small>
-                        <a href="" class="badge badge-success bg-sm float-end">{{ product.product.price }} KM</a>
+                        <small class="float-start" style="margin-left: 8px; text-decoration: none; color: brown;font-size: 8px;">{{ product.product.name }}</small>
+                        <a href="" class="badge badge-success bg-sm float-end" style="font-size: 8px;">{{ product.product.price }}</a>
                     </div>
+                    </router-link>
                 </div>
             </div>
 </template>

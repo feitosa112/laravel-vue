@@ -73,7 +73,7 @@ class OrderController extends Controller
         ->select('product_id', DB::raw('COUNT(product_id) as broj_prodaja'))
         ->groupBy('product_id')
         ->orderByDesc('broj_prodaja')
-        ->limit(3)
+        ->limit(4)
         ->get();
 
         return response()->json($theBestSellingProducts);

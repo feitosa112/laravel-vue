@@ -1,8 +1,8 @@
 <template>
     <div :key="$route.fullPath">
-        <h3 v-if="products.length === 0">Trenutno nema proizvoda za ovu kategoriju</h3>
 
-        <div class="container-fluid" v-else>
+
+        <div class="container-fluid">
             <div class="row">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -12,15 +12,16 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                            <li class="nav-item active" v-for="subCat in subCategory">
-                                <router-link :to="{ name: 'getProductsWithSubCategory', params: { subcategory_id: subCat.id } }"
-                                    class="nav-link" href="#"><small>{{ subCat.name }}</small></router-link>
+                            <li class="nav-item active" v-for="cat in allCat">
+                                <router-link :to="{name:'getProductsWithCategory',params:{category_id:cat.id}}" class="nav-link" href="#"><small>{{ cat.name }}</small></router-link>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </div>
-            <div class="row">
+
+            <h3 v-if="products.length === 0">Trenutno nema proizvoda za ovu kategoriju</h3>
+            <div class="row" v-else>
                 <div class="col-lg-3 col-6 col-md-6 col-sm-6" v-for="product in products">
 
                     <router-link
@@ -66,7 +67,8 @@
 export default {
     data() {
         return {
-            products: []
+            products: [],
+            allCat: [],
         };
     },
 
@@ -74,6 +76,7 @@ export default {
         console.log('Mount start');
         this.getProductsWithSubCategory();
         console.log('Mount end');
+       this.getAllCategories();
     },
     watch: {
         '$route.params.subcategory_id': function (newVal, oldVal) {
@@ -110,6 +113,19 @@ export default {
                 }
             }
         },
+
+        async getAllCategories() {
+        try {
+          const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
+          this.allCat = odg.data.allCategories;
+
+
+          console.log('AllCat:',this.allCat);
+
+        } catch (error) {
+          console.error('Error categories', error);
+        }
+      },
         getAbsoluteImagePath(boutiqueName, imageName) {
             return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
         },
@@ -122,7 +138,6 @@ export default {
                 return "";
             }
         },
-
     }
 };
 </script>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoutiquesModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,16 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user1 = Auth::user();
+        // dd($user1['email']);
+
+
+        return view('home',['user'=>$user1]);
     }
 
-    public function getLogedUser(){
-        try{
-            $user = Auth::user();
-            return response()->json($user);
-        }catch(\Exception $e){
-            return response()->json(['message' => 'Error user details'], 500);
-
-        }
+    public function userBoutique($id){
+        $user = User::find($id);
+        $boutique = BoutiquesModel::where('email',$user->email)->get();
+        return response()->json($boutique);
     }
 }

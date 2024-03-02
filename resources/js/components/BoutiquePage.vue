@@ -5,6 +5,7 @@
 
          <!-- Carousel Start -->
     <div class="container-fluid mb-3">
+        <router-link :to="{name:'addNewProduct'}" class="btn btn-secondary m-2" v-if="user != null && user.email === boutique.email">Dodaj proizvod</router-link>
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
@@ -129,7 +130,8 @@
     data() {
       return {
         boutique: {},
-        boutiqueName:null
+        boutiqueName:null,
+        user:window.user || null,
 
       };
     },

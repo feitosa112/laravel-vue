@@ -20,4 +20,6 @@ class BoutiquesModel extends Model
     public function product(){
         return $this->hasMany(ProductsModel::class,'boutique_id','id');
     }
+
+
 }

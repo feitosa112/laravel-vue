@@ -5,6 +5,7 @@
 
       <div class="container-fluid">
         <div class="row">
+
             <Najprodavaniji/>
             <div class="col-sm-6 col-md-6 col-lg-8">
                 <div class="row">
@@ -50,6 +51,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
 
         boutiques: [],
         featuredProducts:[],
+
       };
     },
     mounted() {
