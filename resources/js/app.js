@@ -20,8 +20,8 @@ import AllProducts from './components/AllProducts.vue'
 const app = createApp(App)
 
 const router = createRouter({
-    history:createWebHistory(),
-    mode:'history',
+    history:createWebHistory(process.env.BASE_URL),
+    base:'/',
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
         { path: '/products/sub-category/:subcategory_id/detail', component: ProductsWithSubCategory, name: 'getProductsWithSubCategory'},

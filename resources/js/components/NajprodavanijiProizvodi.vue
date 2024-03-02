@@ -1,34 +1,48 @@
 <template>
     <div class="col-2 col-sm-12 col-lg-2 col-md-12 d-none d-lg-block">
                 <small>Najprodavaniji proizvodi</small>
-                <div class="row mb-2">
+                <div class="row mb-2" v-for="product in theBestSellingsProduct" :key="product.product.id">
+                    {{  }}
                     <div class="col-3">
-                        <img src="../../images/butik1.jpeg" style="height: 40px;" alt="">
+                        <img :src="getAbsoluteImagePath(product.product.boutique[0].name,product.product.image1)" style="height: 40px;" alt="">
                     </div>
                     <div class="col-8">
-                        <small class="float-start" style="margin-left: 8px;">Ime</small>
-                        <a href="" class="badge badge-success bg-sm float-end">55km</a>
+                        <small class="float-start" style="margin-left: 8px;">{{ product.product.name }}</small>
+                        <a href="" class="badge badge-success bg-sm float-end">{{ product.product.price }} KM</a>
                     </div>
                 </div>
-                <div class="row mb-2">
-                    <div class="col-3">
-                        <img src="../../images/butik1.jpeg" style="height: 40px;" alt="">
-                    </div>
-                    <div class="col-8">
-                        <small class="float-start" style="margin-left: 8px;">Ime</small>
-                        <a href="" class="badge badge-success bg-sm float-end">55km</a>
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col-3">
-                        <img src="../../images/butik1.jpeg" style="height: 40px;" alt="">
-                    </div>
-                    <div class="col-8">
-                        <small class="float-start" style="margin-left: 8px;">Ime</small>
-                        <a href="" class="badge badge-success bg-sm float-end">55km</a>
-                    </div>
-                </div>
-
-
             </div>
 </template>
+
+<script>
+    export default {
+        data(){
+            return {
+                theBestSellingsProduct:[],
+            }
+        },
+        mounted(){
+            this.theBestSellingProducts();
+        },
+        methods:{
+            async theBestSellingProducts() {
+        try {
+            const response = await this.$axios.get('http://127.0.0.1:8000/api/products/theBestSellingsProduct');
+            this.theBestSellingsProduct = response.data;
+            console.log('theBestSellingsProducts:',response)
+
+
+        } catch (error) {
+          console.error('Error fetching theBestSellingsProduct', error);
+        }
+      },
+      getAbsoluteImagePath(boutiqueName,imageName) {
+      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+    },
+    // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
+    removeSpace(name){
+        return name.replace(/\s+/g, "-");
+    },
+        }
+    }
+</script>

@@ -18,4 +18,8 @@ class SubcategoryModel extends Model
     public function withSubCategory(){
         return $this->belongsTo(CategoryModel::class,'id','category_id');
     }
+
+    public function product(){
+        return $this->belongsTo(ProductsModel::class,'id','subcategory_id');
+    }
 }

@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function getProductsWithSubCategory($subcategory_id){
         try{
-            $products = ProductsModel::with('boutique')->where('subcategory_id',$subcategory_id)->get();
+            $products = ProductsModel::with(['boutique','subcategory'])->where('subcategory_id',$subcategory_id)->get();
             if (!$products) {
                 return response()->json(['message' => 'Products not found'], 404);
             }else{

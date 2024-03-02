@@ -21,4 +21,13 @@ class ProductsModel extends Model
     public function boutique(){
         return $this->hasMany(BoutiquesModel::class,'id','boutique_id');
     }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItemModel::class);
+    }
+
+    public function subcategory(){
+        return $this->hasMany(SubcategoryModel::class,'id','subcategory_id');
+    }
 }

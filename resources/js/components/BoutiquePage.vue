@@ -50,7 +50,7 @@
 
     <!-- Shop Product Start -->
     <div class="col-lg-9 col-md-8">
-                <div class="row pb-3">
+                <div class="row">
                     <div class="col-12 pb-1">
                         <div class="d-flex align-items-center justify-content-between mb-4">
 
@@ -74,7 +74,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 col-sm-6 pb-1" v-for="product in boutique.product">
+
+
+
+                    <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in boutique.product">
                         <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -96,6 +99,7 @@
                         </div>
                     </router-link>
                     </div>
+
 
 
                     <div class="col-12">

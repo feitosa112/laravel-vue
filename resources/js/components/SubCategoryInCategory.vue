@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active" v-for="subCat in subCategory">
-        <a class="nav-link" href="#">{{ subCat.name }}</a>
+        <router-link :to="{name:'getProductsWithSubCategory',params:{subcategory_id:subCat.id}}" class="nav-link" href="#"><small>{{ subCat.name }}</small></router-link>
       </li>
     </ul>
   </div>

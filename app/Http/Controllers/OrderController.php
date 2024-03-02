@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\OrderItemModel;
 use App\Models\OrderModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
@@ -62,5 +63,27 @@ class OrderController extends Controller
 
 
         }
+    }
+
+
+    public function theBestSellingProducts(){
+        try {
+
+        $theBestSellingProducts = OrderItemModel::with(['product.boutique'])
+        ->select('product_id', DB::raw('COUNT(product_id) as broj_prodaja'))
+        ->groupBy('product_id')
+        ->orderByDesc('broj_prodaja')
+        ->limit(3)
+        ->get();
+
+        return response()->json($theBestSellingProducts);
+    }catch (\Exception $e) {
+        dd($e->getMessage(), $e->getTrace());
+        // Ukoliko se dogodi greška, vraćamo odgovor sa statusom 500
+        return response()->json(json_encode(['error' => $e->getMessage(), 'trace' => $e->getTrace()]), 500);
+
+
+    }
+
     }
 }

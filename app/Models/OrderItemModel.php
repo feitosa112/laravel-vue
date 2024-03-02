@@ -19,4 +19,9 @@ class OrderItemModel extends Model
         'product_price',
     ];
     use HasFactory;
+
+    public function product()
+    {
+        return $this->belongsTo(ProductsModel::class, 'product_id');
+    }
 }
