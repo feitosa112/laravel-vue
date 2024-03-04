@@ -1,7 +1,7 @@
 <template>
     <div class="col-2 col-sm-12 col-lg-2 col-md-12 d-none d-lg-block">
                 <small>Najprodavaniji proizvodi</small>
-                <div class="row mb-2" v-for="product in theBestSellingsProduct" :key="product.product.id">
+                <div class="row mb-2" v-if="theBestSellingProducts.length>0" v-for="product in theBestSellingsProduct" :key="product.product.id">
                     <router-link :to="{name:'thisProduct',params:{id:product.product.id,productName: removeSpace(product.product.name)}}">
                     <div class="col-3">
                         <img :src="getAbsoluteImagePath(product.product.boutique[0].name,product.product.image1)" style="height: 30px;" alt="">
@@ -38,7 +38,7 @@
         }
       },
       getAbsoluteImagePath(boutiqueName,imageName) {
-      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
     },
     // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
     removeSpace(name){

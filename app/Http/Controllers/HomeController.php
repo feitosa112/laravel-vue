@@ -26,11 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user1 = Auth::user();
+        $user = Auth::user();
         // dd($user1['email']);
 
 
-        return view('home',['user'=>$user1]);
+        return view('home',['user'=>$user]);
     }
 
     public function userBoutique($id){

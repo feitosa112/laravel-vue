@@ -185,6 +185,71 @@ public function deleteProductFromCart(Request $request) {
     }
 
 
+    public function addNewProduct(Request $request)
+{
+    Log::info('Pozvana je addNewProduct funkcija.');
+
+    try {
+        $requestData = $request->all();
+        $boutique=$requestData['boutique_name'];
+        // Provera i čuvanje slika
+
+        if($request->hasFile('image1')){
+            $image1= $request->file('image1');
+            $imgName = time().'1.'.$image1->extension();
+            $image1->move(public_path('images/'.$boutique),$imgName);
+
+        }
+
+
+if ($request->hasFile('image2')) {
+    $image2 = $request->file('image2');
+    $imgName2 = time().'2.'.$image2->extension();
+    $image2->move(public_path('images/'.$boutique), $imgName2);
+}
+
+
+if ($request->hasFile('image3')) {
+    $image3 = $request->file('image3');
+    $imgName3 = time().'3.'.$image3->extension();
+    $image3->move(public_path('images/'.$boutique), $imgName3);
+}
+
+        // Kreiranje instance modela
+        $product = new ProductsModel;
+
+        // Postavljanje vrednosti
+        $product->name = $requestData['name'];
+        $product->category_id = $requestData['category_id'];
+        $product->subcategory_id = $requestData['subcategory_id'];
+        $product->boutique_id = $requestData['boutique_id'];
+        $product->image1 = (isset($image1)) ? $imgName : null;
+        $product->image2 = (isset($image2)) ? $imgName2 : null;
+        $product->image3 = (isset($image3)) ? $imgName3 : null;
+        $product->price = floatval($requestData['price']);
+        $product->old_price = floatval($requestData['old_price']);
+        $product->color = $requestData['color'];
+        $product->size = $requestData['size'];
+        $product->cart_quantity = 1;
+        $product->cart_total = floatval($requestData['price']);
+        $product->description = $requestData['description'];
+        $product->featured = 0;
+
+        // Čuvanje proizvoda
+        $product->save();
+
+        return response()->json(['message' => 'Uspješno ste dodali proizvod'], 200);
+    } catch (\Exception $e) {
+        // Ukoliko se dogodi greška, vraćamo odgovor sa statusom 500
+        Log::error(['message' => $e->getMessage()]);
+        return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 500);
+    }
+}
+
+
+
+
+
 
 
 

@@ -49,7 +49,7 @@ export default {
     },
     methods:{
         getAbsoluteImagePath(boutiqueName,imageName) {
-        return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+        return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
       },
     // metoda koju koristimo da neutralisemo razmak izmedju rijeci u url-u
     removeSpace(name){

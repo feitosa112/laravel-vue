@@ -18,6 +18,8 @@ import AddNewProduct from './components/AddNewProduct-owner.vue'
 
 
 
+
+
 const app = createApp(App)
 
 const router = createRouter({
@@ -52,4 +54,5 @@ app.component('ProductsWithCategory',ProductsWithCategory)
 
 app.config.globalProperties.$axios = axios;
 app.use(router)
+
 app.mount('#app')

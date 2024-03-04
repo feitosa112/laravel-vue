@@ -195,7 +195,7 @@ addToCart(product) {
 
 // postavljena apsolutna putanja za slike
 getAbsoluteImagePath(boutiqueName,imageName) {
-      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
     },
     // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
     removeSpace(name){

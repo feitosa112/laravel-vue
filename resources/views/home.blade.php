@@ -4,14 +4,12 @@
 
     @endsection
 @section('content')
-<div id="app">
 
 
 <script>
-
-        window.user = @json($user);
-
-
+    window.user = @json($user);
 </script>
+<div id="app">
+
 </div>
 @endsection

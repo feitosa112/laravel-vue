@@ -82,7 +82,7 @@
         }
     },
     getAbsoluteImagePath(boutiqueName,imageName) {
-        return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}.jpg`;
+        return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
       },
         removeSpace(name) {
     // Provera da li je name definisan i da li ima metodu replace

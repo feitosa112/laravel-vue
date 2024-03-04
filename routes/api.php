@@ -41,6 +41,7 @@ Route::prefix('products')->group(function () {
     Route::get('/category/sub-cat/{id}',[CategoryController::class,'allSubCategories'])->name('allSubCategories');
 
     Route::get('/user/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
+    Route::post('/products/add-new-product',[ProductController::class,'addNewProduct'])->name('addNewProduct');
 
     Route::group(['middleware' => 'web'], function () {
         Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
