@@ -11,7 +11,7 @@ class BoutiquesController extends Controller
     public function allBoutiques(){
         try{
             $allBoutiques = BoutiquesModel::all();
-            $featuredProducts = ProductsModel::with('boutique')->where('featured',true)->get();
+            $featuredProducts = ProductsModel::with(['boutique','subcategory'])->where('featured',true)->get();
             return response()->json([
                 'allBoutiques'=>$allBoutiques,
                 'featuredProducts'=>$featuredProducts
