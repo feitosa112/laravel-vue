@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderItemModel;
 use App\Models\OrderModel;
+use App\Models\ProductsModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -52,6 +53,7 @@ class OrderController extends Controller
                         'product_price'=>$product['price']
 
                     ]);
+
                 }
             }
 
