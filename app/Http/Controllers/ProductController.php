@@ -167,20 +167,16 @@ public function deleteProductFromCart(Request $request) {
     }
 }
 
-    public function allProducts(){
-        DB::listen(function ($query) {
-            Log::info($query->sql, $query->bindings, $query->time);
-        });
+public function allProducts(Request $request)
+    {
         try {
-            $products = ProductsModel::with('boutique')->get();
+            $perPage = $request->get('perPage', 4); // Broj proizvoda po stranici
+            $products = ProductsModel::with('boutique')->paginate($perPage);
+            $allProducts = ProductsModel::with('boutique')->get();
 
-            if($products){
-                return response()->json($products)->header('Content-Type', 'application/json; charset=utf-8');
-            }else{
-                return response()->json(['message'=>'nisu pronadjeni proizvodi']);
-            }
-        }catch(\Exception $e){
-            return response()->json(['error'=>$e->getMessage()],500);
+            return response()->json([$products,$perPage,$allProducts])->header('Content-Type', 'application/json; charset=utf-8');
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 

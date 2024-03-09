@@ -1,7 +1,10 @@
 <template>
     <div class="container text-center">
       <h2>Dodaj novi proizvod u bazu</h2>
+        <div class="alert alert-success" v-if="addProduct">
+            <p>Uspjesno ste dodali proizvod!</p>
 
+        </div>
 
 
       <form @submit.prevent="saveProduct" enctype="multipart/form-data">
@@ -29,19 +32,12 @@
               </select>
             </div>
 
-            <div class="mb-3" style="display: flex;">
-                <div v-for="(color, index) in colors" :key="index" style="margin-right: 10px;">
-            <input
-                type="checkbox"
-                :id="'color' + index"
-                v-model="selectedColors"
-                :value="color"
-            />
-            <label :for="'color' + index" :style="{ backgroundColor: color, padding: '5px', cursor: 'pointer' }">
-                {{ color }}
-            </label>
+            <div class="mb-3">
+          <label for="size" class="form-label">Unesite velicine</label>
+          <input type="text" v-model="inputSize" id="size" class="form-control" placeholder="Unesite velicine koje imate u ponudi, između svake stavite zarez" required>
         </div>
-            </div>
+
+
           </div>
 
           <div class="col-md-4">
@@ -94,11 +90,22 @@
             </div> -->
           </div>
         </div>
-
-        <div class="mb-3">
-          <label for="size" class="form-label">Unesite velicine</label>
-          <input type="text" v-model="inputSize" id="size" class="form-control" placeholder="Unesite velicine koje imate u ponudi, između svake stavite zarez" required>
+        <div class="row">
+            <div class="mb-3" style="display: flex;">
+                <div v-for="(color, index) in colors" :key="index" style="margin-right: 10px;">
+    <input
+        type="checkbox"
+        :id="'color' + index"
+        :checked="isColorSelected(color)"
+        @change="handleColorChange(color)"
+    />
+    <label :for="'color' + index" :style="{ backgroundColor: color, padding: '5px', cursor: 'pointer' }">
+        {{ color }}
+    </label>
+</div>
+            </div>
         </div>
+
 
 
         <button type="submit" class="btn btn-primary form-control">Dodaj proizvod</button>
@@ -121,20 +128,18 @@
         boutique_name:'',
         colors: ['black', 'white', 'yellow', 'red', 'orange', 'blue', 'green', 'gray', 'brown', 'violet', 'pink', 'gold'],
         productName: '',
-      price: '',
-      old_price: '',
-      opis: '',
-      inputSize: '',
-      image1: null,
-      image2: null,
-      image3: null,
-      error: '',
+       price: '',
+       old_price: '',
+       opis: '',
+       inputSize: '',
+       image1: null,
+       image2: null,
+       image3: null,
+       error: '',
+       addProduct:false,
+       selectedColor: '',
 
-        // boutique_id: this.id,
-
-        selectedColor: '',
-
-        error: '', // Dodao sam error u data deo
+         // Dodao sam error u data deo
       };
     },
     mounted() {
@@ -161,7 +166,7 @@
       image1: this.image1,
       image2: this.image2,
       image3: this.image3,
-      boutique_name:this.boutique[0].name
+      boutique_name:this.boutique[0].name,
         }
         console.log('name:',formData.name);
   try {
@@ -172,12 +177,28 @@
             'X-CSRF-TOKEN': csrfToken,
         },
                 });
+
+    this.addProduct=true;
+    this.emptyForm();
     console.log('NewProduct:', response.data);
   } catch (error) {
     console.error('Došlo je do greške prilikom slanja forme:', formData);
     this.error = 'Popunite sva polja (size, color...)';
   }
 },
+
+isColorSelected(color) {
+        return this.selectedColors.includes(color);
+    },
+    handleColorChange(color) {
+        if (this.selectedColors.includes(color)) {
+            // Ako je boja već izabrana, uklonite je iz niza
+            this.selectedColors = this.selectedColors.filter(c => c !== color);
+        } else {
+            // Ako boja nije izabrana, dodajte je u niz
+            this.selectedColors.push(color);
+        }
+    },
 
       async getAllCategories() {
         try {
@@ -233,7 +254,23 @@
     // Ako korisnik otkaže izbor slike, postavljamo vrednost na null
     this[inputName] = null;
   }
-}},
+},
+
+emptyForm(){
+    this.productName='',
+    this.price='',
+    this.old_price='',
+    this.description='',
+    this.size='',
+    this.image1='',
+    this.image2='',
+    this.image3='',
+    this.categories=[],
+    this.subcategories=[]
+
+}
+
+},
 
   };
   </script>

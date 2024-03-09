@@ -3,7 +3,9 @@
       <podnavbar />
 
       <router-view></router-view>
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+      <a href="" class="btn btn-primary back-to-top" @click="scrollToTop">
+  <i class="fa fa-angle-double-up"></i>
+</a>
 
       <Footer></Footer>
     </div>
@@ -21,6 +23,18 @@ export default {
         return {
 
         }
-    }
+    },
+
+    methods: {
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+},
+
+watch: {
+  '$route'() {
+    // Logika za promenu rute
+  }
+}
 };
 </script>

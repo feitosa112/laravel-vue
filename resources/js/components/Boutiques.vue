@@ -4,36 +4,13 @@
 <template>
 
       <div class="container-fluid">
-        <div class="row">
-    <div class="col-lg-4 col-6 text-left">
-      <form action="" class="m-3">
-        <div class="input-group position-relative">
-          <input v-model="searchQuery" @input="updateSuggestions" class="form-control" placeholder="Unesite termin pretrage" />
 
-          <div class="input-group-append">
-            <span class="input-group-text bg-transparent text-primary">
-              <i class="fa fa-search"></i>
-            </span>
-          </div>
-
-          <!-- Postavite sugestije ispod polja pretrage -->
-          <div class="suggestions position-absolute" v-if="suggestions.length > 0 && searchQuery !== ''">
-            <ul>
-              <li v-for="suggestion in suggestions" :key="suggestion.id" @click="selectSuggestion(suggestion)">
-                {{ suggestion.name }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
         <div class="row">
 
             <Najprodavaniji/>
             <div class="col-sm-6 col-md-6 col-lg-8">
                 <div class="row">
-                    <div class="col-6 col-md-6 col-sm-6 col-lg-3 mb-2" v-for="boutique in filteredBoutiques" :key="boutique.id">
+                    <div class="col-6 col-md-6 col-sm-6 col-lg-3 mb-2" v-for="boutique in boutiques" :key="boutique.id">
                         <div class="card mb-2" id="card" style="border-radius: 5%;box-shadow:0px 0px 5px rgba(0,0,0,0.5);">
                         <img :src="getAbsoluteImagePath(boutique.name,boutique.image)" class="card-img-top" alt="Slika" style="object-fit: cover; height: 60%;">
                             <div class="card-body naslov" style="margin-top: -20px;">
@@ -54,6 +31,7 @@
 
 
       </div>
+      <AllProductsPaginator></AllProductsPaginator>
       <CategoriesHome></CategoriesHome>
      <FeaturedProducts :featuredProducts="filteredFeaturedProducts" :searchQuery="searchQuery"></FeaturedProducts>
 
@@ -66,40 +44,21 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
   import Najnoviji from "./NajnovijiProizvodi.vue";
   import FeaturedProducts from "./FeaturedProducts.vue";
   import CategoriesHome from './Categories-home.vue'
-  import Search from "./Search.vue";
+
+  import AllProductsPaginator from './AllProductsPaginator.vue'
 
   export default {
-    components:{Najprodavaniji,Najnoviji,CategoriesHome,FeaturedProducts,Search},
+    components:{Najprodavaniji,Najnoviji,CategoriesHome,FeaturedProducts,AllProductsPaginator},
     data() {
       return {
 
         boutiques: [],
         featuredProducts:[],
-        searchQuery: '',
-        suggestions: []
+
 
       };
     },
-    computed:{
 
-        filteredBoutiques() {
-      const query = this.searchQuery.toLowerCase();
-      return this.boutiques.filter(boutique =>
-        boutique.name.toLowerCase().startsWith(query) ||
-        boutique.address.toLowerCase().startsWith(query)
-      );
-    },
-
-    filteredFeaturedProducts() {
-      // Prilagodite ovu logiku filtriranja prema vašim potrebama
-      // Ovde koristimo samo searchQuery kao primer
-      const query = this.searchQuery.toLowerCase();
-      return this.featuredProducts.filter(product =>
-        product.name.toLowerCase().startsWith(query) || product.subcategory[0].name.toLowerCase().startsWith(query)
-      );
-    }
-
-    },
 
 
     mounted() {
@@ -107,16 +66,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
       document.title = "Butici Banja Luka"
     },
     methods: {
-        updateSuggestions() {
-      const query = this.searchQuery.toLowerCase();
-      this.suggestions = this.boutiques.filter(boutique =>
-        boutique.name.toLowerCase().includes(query)
-      );
-    },
-    selectSuggestion(suggestion) {
-      this.searchQuery = suggestion.name;
-      this.suggestions = [];
-    },
+
 
       async fetchBoutiques() {
         try {
@@ -144,32 +94,5 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
 
 
 <style scoped>
-  /* Stilizujte sugestije */
-  .suggestions {
-    background-color: white;
-    border: 1px solid #ccc;
-    max-height: 200px;
-    overflow-y: auto;
-    width: 100%;
-    position: absolute;
-    top: 100%; /* Postavite sugestije ispod polja pretrage */
-    left: 0;
-    z-index: 1000;
-  }
 
-  .suggestions ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .suggestions li {
-    padding: 8px;
-    cursor: pointer;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .suggestions li:last-child {
-    border-bottom: none;
-  }
 </style>

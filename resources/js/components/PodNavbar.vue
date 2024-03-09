@@ -1,6 +1,6 @@
 <template>
 
-    <div class="container-fluid bg-dark mb-30">
+    <div class="container-fluid bg-dark mb-30" style="margin-top: -25px;">
         <div class="row px-xl-5">
             <Categories/>
             <div class="col-lg-9">

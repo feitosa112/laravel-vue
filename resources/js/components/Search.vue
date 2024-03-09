@@ -1,29 +1,39 @@
 <template>
     <div class="row">
-        <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-        <div class="col-lg-4">
-            <a href="" class="text-decoration-none">
-                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
-                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
-            </a>
+        <div class="col-lg-6 offset-lg-3 col-6 col-sm-12 col-md-12 text-left">
+          <form action="" class="m-3">
+            <div class="input-group position-relative">
+              <input
+                v-model="searchQuery"
+                @input="updateSuggestions"
+                class="form-control"
+                placeholder="Unesite termin pretrage"
+              />
+
+              <div class="input-group-append">
+                <span class="input-group-text bg-transparent text-primary">
+                  <i class="fa fa-search"></i>
+                </span>
+              </div>
+
+              <div
+                class="suggestions position-absolute"
+                v-if="suggestions.length > 0 && searchQuery !== ''"
+              >
+                <ul>
+                  <li
+                    v-for="suggestion in suggestions"
+                    :key="suggestion.id"
+                    @click="selectSuggestion(suggestion)"
+                  >
+                    {{ suggestion.name }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </form>
         </div>
-
-        <div class="col-lg-4 col-6 text-left">
-            <form action="">
-                <div class="input-group">
-                    <input type="text" v-model="searchTerm" class="form-control" placeholder="Search for products">
-                    <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-    </div>
+      </div>
 
 
 </template>

@@ -24,6 +24,7 @@
         "vue-axios": "^3.5.2",
         "vue-color": "^2.8.1",
         "vue-colorful": "^0.0.0",
+        "vue-pagination-2": "^3.1.0",
         "vue-router": "^4.2.5",
         "vuex": "^4.1.0"
     }
