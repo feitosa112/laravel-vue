@@ -4,7 +4,7 @@
 <template>
 
       <div class="container-fluid">
-
+        <Search></Search>
         <div class="row">
 
             <Najprodavaniji/>
@@ -33,7 +33,7 @@
       </div>
       <AllProductsPaginator></AllProductsPaginator>
       <CategoriesHome></CategoriesHome>
-     <FeaturedProducts :featuredProducts="filteredFeaturedProducts" :searchQuery="searchQuery"></FeaturedProducts>
+     <FeaturedProducts :featuredProducts="featuredProducts"></FeaturedProducts>
 
   </template>
 
@@ -74,7 +74,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
             this.boutiques = response.data.allBoutiques;
             this.featuredProducts = response.data.featuredProducts;
 
-
+            console.log('FeaturedProducts:',this.featuredProducts);
         } catch (error) {
           console.error('Error fetching boutiques', error);
         }

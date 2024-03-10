@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ProductsModel;
 use App\Models\SubcategoryModel;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -11,73 +12,48 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
+    private $productsRepo;
+
+    public function __construct(ProductRepository $productsRepo){
+        $this->productsRepo = $productsRepo;
+    }
     public function getProductsWithSubCategory($subcategory_id){
-        try{
-            $products = ProductsModel::with(['boutique','subcategory'])->where('subcategory_id',$subcategory_id)->get();
-            if (!$products) {
-                return response()->json(['message' => 'Products not found'], 404);
-            }else{
-                return response()->json($products);
-
-            }
-        }catch(\Exception $e){
-            return response()->json(['message' => 'Error retrieving products details'], 500);
-
+        $products = $this->productsRepo->getProductsWithSubCategory($subcategory_id);
+        if($products){
+            return response()->json($products);
+        }else {
+            return response()->json(['message' => 'Products not found'], 404);
         }
     }
 
 
 
     public function getProductsWithCategory($category_id){
-        try{
-            $products = ProductsModel::with('boutique')->where('category_id',$category_id)->get();
-            $subCategory = SubcategoryModel::where('category_id',$category_id)->get();
-            if (!$products) {
-                return response()->json(['message' => 'Products not found'], 404);
-            }else{
-                return response()->json([
-                    'products' => $products,
-                    'subCategory' => $subCategory,
-                ]);
-
-            }
-        }catch(\Exception $e){
-            return response()->json(['message' => 'Error retrieving products details'], 500);
-
+        $products = $this->productsRepo->getProductsWithCategory($category_id);
+        if($products){
+            return response()->json($products);
+        }else{
+            return response()->json(['message' => 'Products not found'], 404);
         }
     }
 
 
     public function getThisProduct($id,$productName){
-        $name = str_replace('-',' ',$productName);
+        $product = $this->productsRepo->getThisProduct($id,$productName);
 
-        try {
-            $product = ProductsModel::with('boutique')->where('id',$id)->where('name',$name)->first();
-                if(!$product){
-                return response()->json(['message' => 'Product not found'], 404);
-
-                }else{
-                    return response()->json($product);
-                }
-        }catch(\Exception $e){
-            return response()->json(['message' => 'Error retrieving product details'], 500);
-
+        if($product){
+            return response()->json($product);
+        }else{
+            return response()->json(['message' => 'Product not found'], 404);
         }
     }
 
     public function addToCart(Request $request) {
-        // $id je vrednost uhvaćena iz URL rute
-        // Session::forget('cart');
-        // Uzimanje podataka iz tela HTTP POST zahteva
+
         $formData = $request->all();
 
-        // Rad sa podacima iz tela zahteva i $id
-
-        // Primer: Dodavanje proizvoda u korpu
-
-
-        $color = $formData['color']; // Prilagodite ključu prema strukturi vašeg tela zahteva
-        $size = $formData['size']; // Prilagodite ključu prema strukturi vašeg tela zahteva
+        $color = $formData['color'];
+        $size = $formData['size'];
         $boutiqueName = $formData['boutiqueName'];
         $id = $formData['id'];
         $product = ProductsModel::with('boutique')->find($id);

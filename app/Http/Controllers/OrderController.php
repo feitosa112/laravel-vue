@@ -2,90 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderItemModel;
-use App\Models\OrderModel;
-use App\Models\ProductsModel;
+
+use App\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+
 
 class OrderController extends Controller
 {
+
+    private $orderRepo;
+
+    public function __construct(OrderRepository $orderRepo){
+        $this->orderRepo = $orderRepo;
+    }
     public function sendOrder(Request $request){
-        try {
+        $order = $this->orderRepo->getSendOrder($request);
 
-
-            $cartData = $request->cart;
-            $totalAmount = $request->total;
-            $customerData = $request->formData;
-
-            // $request->validate([
-            // $customerData['customer_name']=>'required|string',
-            // $customerData['customer_surname']=>'required|string',
-            // $customerData['customer_address']=>'required|string',
-            // $customerData['customer_phone']=>'required|string',
-            // '_token' => 'required',
-
-
-
-            // ]);
-           $order= OrderModel::create([
-                'customer_name'=>$customerData['customer_name'],
-                'customer_surname'=>$customerData['customer_surname'],
-                'customer_address'=>$customerData['customer_address'],
-                'customer_phone'=>$customerData['customer_phone'],
-                'total_price'=>$totalAmount
-
-            ]);
-            // Session::forget('cart')
-            if($cartData != null){
-
-
-                foreach($cartData as $product){
-                    OrderItemModel::create([
-                        'product_id' => $product['productId'],
-                        'order_id' => $order->id,
-                        'product_name'=>$product['productName'],
-                        'product_size'=>$product['size'],
-                        'product_color'=>$product['color'],
-                        'quantity'=>$product['cart_quantity'],
-                        'boutique'=>$product['boutiqueName'],
-                        'product_price'=>$product['price']
-
-                    ]);
-
-                }
-            }
-
-            return response()->json($cartData);
-        } catch (\Exception $e) {
-            dd($e->getMessage(), $e->getTrace());
-            // Ukoliko se dogodi greška, vraćamo odgovor sa statusom 500
-            return response()->json(json_encode(['error' => $e->getMessage(), 'trace' => $e->getTrace()]), 500);
-
-
-        }
     }
 
 
     public function theBestSellingProducts(){
-        try {
-
-        $theBestSellingProducts = OrderItemModel::with(['product.boutique'])
-        ->select('product_id', DB::raw('COUNT(product_id) as broj_prodaja'))
-        ->groupBy('product_id')
-        ->orderByDesc('broj_prodaja')
-        ->limit(4)
-        ->get();
-
-        return response()->json($theBestSellingProducts);
-    }catch (\Exception $e) {
-        dd($e->getMessage(), $e->getTrace());
-        // Ukoliko se dogodi greška, vraćamo odgovor sa statusom 500
-        return response()->json(json_encode(['error' => $e->getMessage(), 'trace' => $e->getTrace()]), 500);
 
 
-    }
+            $theBestSellingProducts = $this->orderRepo->getTheBestSellingProducts();
+            return response()->json($theBestSellingProducts);
 
     }
 }

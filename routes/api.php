@@ -28,29 +28,37 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::controller(BoutiquesController::class)->group(function(){
     Route::get('/allBoutiques','allBoutiques')->name('allBoutiques');
     Route::get('/{boutiqueName}','thisBoutique')->name('boutique-page');
-
-
 });
-Route::prefix('products')->group(function () {
-    Route::get('/sub-category/{subcategory_id}/detail', [ProductController::class, 'getProductsWithSubCategory'])->name('getProductsWithSubCategory');
-    Route::get('/category/{category_id}', [ProductController::class, 'getProductsWithCategory'])->name('getProductsWithCategory');
-    Route::get('/product/{id}/{productName}', [ProductController::class, 'getThisProduct'])->name('thisProduct');
-    Route::get('/all-products', [ProductController::class, 'allProducts'])->name('allProducts');
+
+Route::controller(ProductController::class)->prefix('products')->group(function () {
+    Route::get('/sub-category/{subcategory_id}/detail','getProductsWithSubCategory')->name('getProductsWithSubCategory');
+    Route::get('/category/{category_id}','getProductsWithCategory')->name('getProductsWithCategory');
+    Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
+    Route::get('/all-products','allProducts')->name('allProducts');
+    Route::post('/add-new-product','addNewProduct')->name('addNewProduct');
 });
-    Route::get('/boutique/allCategories',[CategoryController::class,'allCategories'])->name('allCategories');
-    Route::get('/category/sub-cat/{id}',[CategoryController::class,'allSubCategories'])->name('allSubCategories');
+
+Route::controller(CategoryController::class)->group(function(){
+    Route::get('/boutique/allCategories','allCategories')->name('allCategories');
+    Route::get('/category/sub-cat/{id}','allSubCategories')->name('allSubCategories');
+});
+
 
     Route::get('/user/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
-    Route::post('/products/add-new-product',[ProductController::class,'addNewProduct'])->name('addNewProduct');
+
 
     Route::group(['middleware' => 'web'], function () {
-        Route::post('/cart/addToCart',[ProductController::class,'addToCart'])->name('addToCart');
-        Route::get('/cart/cart-view', [ProductController::class, 'cartView'])->name('cartView');
-        Route::post('/cart/empty-cart',[ProductController::class,'emptyCart'])->name('emptyCart');
-        Route::post('/cart/delete-product',[ProductController::class,'deleteProductFromCart'])->name('deleteProductFromCart');
+        Route::controller(ProductController::class)->prefix('cart')->group(function(){
+            Route::post('/addToCart','addToCart')->name('addToCart');
+            Route::get('/cart-view','cartView')->name('cartView');
+            Route::post('/empty-cart','emptyCart')->name('emptyCart');
+            Route::post('/delete-product','deleteProductFromCart')->name('deleteProductFromCart');
+        });
 
-        Route::post('/order/send-order',[OrderController::class,'sendOrder'])->name('sendOrder');
-        Route::get('/products/theBestSellingsProduct',[OrderController::class,'theBestSellingProducts'])->name('theBestSellingProducts');
+        Route::controller(OrderController::class)->group(function(){
+            Route::post('/order/send-order','sendOrder')->name('sendOrder');
+            Route::get('/products/theBestSellingsProduct','theBestSellingProducts')->name('theBestSellingProducts');
+        });
     });
 
 

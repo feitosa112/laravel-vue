@@ -3,9 +3,9 @@
       <podnavbar />
 
       <router-view></router-view>
-      <a href="" class="btn btn-primary back-to-top" @click="scrollToTop">
+      <p class="btn btn-primary back-to-top" @click="scrollToTop">
   <i class="fa fa-angle-double-up"></i>
-</a>
+      </p>
 
       <Footer></Footer>
     </div>

@@ -2,43 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BoutiquesModel;
-use App\Models\ProductsModel;
-use Illuminate\Http\Request;
+
+use App\Repositories\BoutiquesRepository;
+
 
 class BoutiquesController extends Controller
 {
+    private $boutiquesRepo;
+
+    public function __construct(BoutiquesRepository $boutiquesRepo){
+        $this->boutiquesRepo = $boutiquesRepo;
+    }
     public function allBoutiques(){
-        try{
-            $allBoutiques = BoutiquesModel::all();
-            $featuredProducts = ProductsModel::with(['boutique','subcategory'])->where('featured',true)->get();
-            return response()->json([
-                'allBoutiques'=>$allBoutiques,
-                'featuredProducts'=>$featuredProducts
-            ]);
-
-        }catch(\Exception $e){
-            dd($e->getMessage());
-        }
-
+       $allBoutiques = $this->boutiquesRepo->getAllBoutiques();
+       return response()->json($allBoutiques);
     }
 
     public function thisBoutique($boutiqueName){
 
-        $name = str_replace('-',' ',$boutiqueName);
-        try{
-            $boutique = BoutiquesModel::with('product')->where('name',$name)->first();
+        $boutique = $this->boutiquesRepo->getThisBoutique($boutiqueName);
+        if($boutique){
+            return response()->json($boutique);
 
-            if (!$boutique) {
-                return response()->json(['message' => 'Boutique not found'], 404);
-            }else{
-                return response()->json($boutique);
-
-            }
-
-        }catch(\Exception $e){
-            return response()->json(['message' => 'Error retrieving boutique details'], 500);
-
+        }else{
+            return response()->json(['message' => 'Boutique not found'], 404);
         }
     }
 }

@@ -98,6 +98,7 @@
         :id="'color' + index"
         :checked="isColorSelected(color)"
         @change="handleColorChange(color)"
+        class="me-1"
     />
     <label :for="'color' + index" :style="{ backgroundColor: color, padding: '5px', cursor: 'pointer' }">
         {{ color }}
