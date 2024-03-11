@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Models\ProductsModel;
 use App\Models\SubcategoryModel;
+use Illuminate\Support\Facades\Auth;
 
 class ProductRepository {
     private $productsModel;
@@ -52,6 +53,12 @@ class ProductRepository {
 
         try {
             $product = ProductsModel::with('boutique')->where('id',$id)->where('name',$name)->first();
+
+            if(Auth::user() && Auth::user()->email !== $product->boutique[0]->email && Auth::user() && Auth::user()->email !== '112kuzmanovic@gmail.com' || !Auth::user() ){
+                $product->increment('view');
+            }else{
+                $product->view = $product->view;
+            }
                 if(!$product){
                 return response()->json(['message' => 'Product not found'], 404);
 

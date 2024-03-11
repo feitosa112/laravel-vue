@@ -31,7 +31,7 @@
 
                     <div class="d-flex mb-3">
 
-                        <small class="pt-1">(99 Reviews)</small>
+                        <small class="pt-1">({{ product.view }} Reviews)</small>
                     </div>
                     <h3 class="font-weight-semi-bold mb-4">{{ product.price }} KM</h3>
                     <p class="mb-4">{{ product.description }}</p>

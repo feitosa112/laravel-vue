@@ -13,7 +13,11 @@ class BoutiquesModel extends Model
         'address',
         'email',
         'phone',
-        'image'
+        'image',
+        'image2',
+        'image3',
+        'view',
+        'description'
     ];
     use HasFactory;
 

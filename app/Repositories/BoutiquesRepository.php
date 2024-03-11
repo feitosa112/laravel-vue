@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\BoutiquesModel;
 use App\Models\ProductsModel;
+use Illuminate\Support\Facades\Auth;
 
 class BoutiquesRepository {
     private $boutiquesModel;
@@ -31,7 +32,9 @@ class BoutiquesRepository {
         $name = str_replace('-',' ',$boutiqueName);
         try{
             $boutique = BoutiquesModel::with('product')->where('name',$name)->first();
-
+            if(Auth::user() && Auth::user()->email !== $boutique->email && Auth::user() && Auth::user()->email !== '112kuzmanovic@gmail.com' || !Auth::user()){
+                $boutique->increment('view');
+            }
             if (!$boutique) {
                 return response()->json(['message' => 'Boutique not found'], 404);
             }else{

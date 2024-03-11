@@ -5,7 +5,9 @@
 
          <!-- Carousel Start -->
     <div class="container-fluid mb-3">
-        <router-link :to="{name:'addNewProduct'}" class="btn btn-secondary m-2" v-if="user != null && user.email === boutique.email">Dodaj proizvod</router-link>
+        <router-link :to="{name:'addNewProduct'}" style="border-radius: 5px;" class="btn btn-info m-2" v-if="user != null && user.email === boutique.email || user.email===admin_email">Dodaj proizvod</router-link>
+        <button class="btn btn-info" style="border-radius: 5px;" v-if="user != null && user.email === boutique.email || user.email===admin_email">Broj posjeta:{{ boutique.view }}</button>
+
         <div class="row px-xl-5">
             <div class="col-lg-8">
                 <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
@@ -37,7 +39,7 @@
                     </div>
                 </div>
                 <div class="product-offer mb-30" style="height: 200px;">
-                    <img class="img-fluid" :src="getAbsoluteImagePath(boutique.name,boutique.image2)" alt="">
+                    <img class="img-fluid" :src="getAbsoluteImagePath(boutique.name,boutique.image3)" alt="">
                     <div class="offer-text">
                         <h6 class="text-white text-uppercase">Save 20%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
@@ -156,7 +158,7 @@
         user:window.user || null,
         searchQuery: '',
         suggestions: [],
-
+        admin_email:'112kuzmanovic@gmail.com'
       };
     },
     mounted() {
