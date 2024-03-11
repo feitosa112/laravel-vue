@@ -8,22 +8,21 @@
         <div class="row">
 
             <Najprodavaniji/>
-            <div class="col-sm-6 col-md-6 col-lg-8">
+            <div class="col-sm-12 col-md-12 col-lg-8 d-flex flex-wrap">
                 <div class="row">
-                    <div class="col-6 col-md-6 col-sm-6 col-lg-3 mb-2" v-for="boutique in boutiques" :key="boutique.id">
-                        <div class="card mb-2" id="card" style="border-radius: 5%;box-shadow:0px 0px 5px rgba(0,0,0,0.5);">
-                        <img :src="getAbsoluteImagePath(boutique.name,boutique.image)" class="card-img-top" alt="Slika" style="object-fit: cover; height: 60%;">
-                            <div class="card-body naslov" style="margin-top: -20px;">
-                                <h4 class="card-title text-center">{{ boutique.name }}</h4>
-                                <small class="text-muted float-end">{{ boutique.address }}</small>
-                                <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
-                                    <button class="btn btn-primary form-control" id="butik-submit" style="border-radius: 5px;">Pogledaj</button>
-                                </router-link>
-                            </div>
+                    <div class="col-5 col-md-5 col-sm-5 col-sm-ms-2 col-lg-3 mb-2 " v-for="boutique in boutiques" :key="boutique.id">
+                        <div class="card" style="border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+                            <img :src="getAbsoluteImagePath(boutique.name, boutique.image)" class="card-img-top" alt="Slika butika" style="object-fit: cover; height: 170px; border-radius: 10px 10px 0 0;">
+
+                            <h5 class="card-title text-center">{{ boutique.name }}</h5>
+                            <p class="card-text text-center" style="font-size: 9px;">{{ boutique.address }}</p>
+
+                        <div class="card-footer">
+                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" class="btn btn-primary btn-block" style="border-radius: 0 0 10px 10px;">Pogledaj</router-link>
+                        </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             <Najnoviji/>
         </div>
@@ -94,5 +93,11 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
 
 
 <style scoped>
+.card {
+  transition: transform 0.2s;
+}
 
+.card:hover {
+  transform: scale(1.05);
+}
 </style>

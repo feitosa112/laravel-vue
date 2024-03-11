@@ -51,34 +51,56 @@
 
     <!-- Shop Product Start -->
     <div class="col-lg-9 col-md-8">
-                <div class="row">
-                    <div class="col-12 pb-1">
-                        <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-6 col-sm-12 col-md-12 text-left">
+                <form action="" class="m-3">
+                <div class="input-group position-relative">
+                    <input v-model="searchQuery" @input="updateSuggestions" class="form-control" placeholder="Unesite termin pretrage"/>
+                    <div class="input-group-append">
+                        <span class="input-group-text bg-transparent text-primary">
+                        <i class="fa fa-search"></i>
+                        </span>
+                    </div>
 
-                            <div class="ml-2">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">Latest</a>
-                                        <a class="dropdown-item" href="#">Popularity</a>
-                                        <a class="dropdown-item" href="#">Best Rating</a>
-                                    </div>
-                                </div>
-                                <div class="btn-group ml-2">
-                                    <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="#">10</a>
-                                        <a class="dropdown-item" href="#">20</a>
-                                        <a class="dropdown-item" href="#">30</a>
-                                    </div>
-                                </div>
+                    <div class="suggestions position-absolute" v-if="suggestions.length > 0 && searchQuery !== ''">
+                        <ul>
+                            <li v-for="suggestion in suggestions" :key="suggestion.id" @click="selectSuggestion(suggestion)">
+                                {{ suggestion.name }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 pb-1">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+
+                    <div class="ml-2">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">Latest</a>
+                                <a class="dropdown-item" href="#">Popularity</a>
+                                <a class="dropdown-item" href="#">Best Rating</a>
+                            </div>
+                        </div>
+                        <div class="btn-group ml-2">
+                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#">10</a>
+                                <a class="dropdown-item" href="#">20</a>
+                                    <a class="dropdown-item" href="#">30</a>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
 
 
-                    <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in boutique.product">
+                    <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
                         <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
@@ -132,6 +154,8 @@
         boutique: {},
         boutiqueName:null,
         user:window.user || null,
+        searchQuery: '',
+        suggestions: [],
 
       };
     },
@@ -139,8 +163,36 @@
         console.log('Mounted...');
       this.fetchBoutiqueDetails();
     },
-    methods: {
 
+    computed:{
+        filterProducts() {
+        const query = this.searchQuery.toLowerCase();
+        return this.boutique.product ? this.boutique.product.filter(product =>
+          product.name.toLowerCase().startsWith(query)
+        ) : [];
+      }
+    },
+    methods: {
+        filterProductsOnCurrentPage() {
+  const query = this.searchQuery.toLowerCase();
+
+  this.products = this.boutique.product.filter((product) =>
+  product.name.toLowerCase().includes(query)
+  )
+        },
+
+
+        updateSuggestions() {
+        const query = this.searchQuery.toLowerCase();
+        this.suggestions = this.boutique.product.filter((product) =>
+          product.name.toLowerCase().includes(query)
+        );
+        this.filterProductsOnCurrentPage();
+      },
+      selectSuggestion(suggestion) {
+        this.searchQuery = suggestion.name;
+        this.suggestions = [];
+      },
 
         async fetchBoutiqueDetails() {
     const boutiqueName = this.$route.params.boutiqueName;
@@ -223,6 +275,33 @@ getAbsoluteImagePath(boutiqueName,imageName) {
   </script>
 
   <style scoped>
+  .suggestions {
+    background-color: white;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .suggestions ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .suggestions li {
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .suggestions li:last-child {
+    border-bottom: none;
+  }
   @media (max-width:556px) {
     h1{
         font-size: 11px;
@@ -262,5 +341,6 @@ p{
     line-height: 0.5;
 
 }
+
 
 </style>

@@ -60,7 +60,7 @@
 
     <div class="pagination justify-content-center" v-if="products.length > 0">
       <button @click="prevPage" class="btn btn-outline-info me-2" >Prethodna</button>
-      <a style="text-decoration: none;" class="btn btn-secondary me-2">{{ currentPage }}</a>
+      <a style="text-decoration: none;" class="btn btn-secondary me-2">{{ currentPage }}/{{ totalPages }}</a>
       <button @click="nextPage" class="btn btn-outline-info me-2" >Sljedeća</button>
     </div>
   </div>
@@ -204,6 +204,13 @@ async allProducts() {
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
+}
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
 }
 
   </style>

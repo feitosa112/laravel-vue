@@ -61,6 +61,10 @@ Route::controller(CategoryController::class)->group(function(){
         });
     });
 
+    Route::prefix('admin')->group(function(){
+        Route::post('/add-new-boutique',[BoutiquesController::class,'addNewBoutique'])->name('addNewBoutique');
+    });
+
 
 Route::fallback(function () {
     return response()->json(['message' => 'Fallback route.'], 404);

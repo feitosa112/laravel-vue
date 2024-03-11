@@ -26,8 +26,12 @@
                             <a href="" class="nav-item nav-link">Contact</a>
                             <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodi</router-link>
 
+                            <router-link class="nav-item nav-link" :to="{name:'addNewBoutique'}" v-if="user != null && user.email === admin_email">Add boutique</router-link>
+
+
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-lg-block">
+
                             <router-link class="btn px-0" :to="{name:'cartView'}">
                                 <i class="fas fa-shopping-cart text-primary me-2"></i>
                                 <span class="badge text-secondary border border-secondary" style="padding-bottom: 2px;">View Cart</span>
@@ -54,6 +58,9 @@ export default {
   data() {
     return {
       componentKey: 0,
+      user:window.user || null,
+      admin_email:'112kuzmanovic@gmail.com'
+
     };
   },
 

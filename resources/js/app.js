@@ -15,6 +15,7 @@ import ThisProduct from "./components/ThisProduct.vue";
 import Cart from "./components/Cart.vue"
 import AllProducts from './components/AllProducts.vue'
 import AddNewProduct from './components/AddNewProduct-owner.vue'
+import AddNewBoutique from './components/Admin_add_new_boutique.vue'
 
 
 
@@ -33,7 +34,8 @@ const router = createRouter({
         {path:'/:boutiqueName',component:BoutiquePage,name:'boutique-page'},
         {path:'/cart/cart-view',component:Cart,name:'cartView'},
         {path:'/products/all-products',component:AllProducts,name:'allProducts'},
-        {path:'/owner/add-new-product',component:AddNewProduct,name:'addNewProduct'}
+        {path:'/owner/add-new-product',component:AddNewProduct,name:'addNewProduct'},
+        {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'}
 
 
 
