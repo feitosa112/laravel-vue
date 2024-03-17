@@ -3,7 +3,8 @@
      <div class="col-6 col-md-6 col-sm-6 col-lg-3  mb-2" v-for="product in products" :key="product.id">
          <div class="card" id="card" style="max-width: 300px; box-shadow: 5px 5px 5px gray; position: relative;">
              <!-- Dodajte ikonu za favorite u gornji desni ugao kartice -->
-             <i v-if="user" class="fas fa-heart" :class="{ 'text-danger': isInFavorites(product.id) }" @click="toggleFavorite(product)" style="position: absolute; top: 5px; right: 5px;"></i>
+
+             <i v-if="user" :class="{ 'fa-solid fa-heart': isInFavorites(product.id), 'fa-regular fa-heart': !isInFavorites(product.id) }" @click="toggleFavorite(product)" style="position: absolute; top: 5px; right: 5px;font-size: 20px;"></i>
 
              <router-link :to="{ name: 'thisProduct', params: { id: product.id, productName: removeSpace(product.name) }}" style="text-decoration: none;">
                  <div class="card-header">
