@@ -5,8 +5,8 @@
 
          <!-- Carousel Start -->
     <div class="container-fluid mb-3">
-        <router-link :to="{name:'addNewProduct'}" style="border-radius: 5px;" class="btn btn-info m-2" v-if="user != null && user.email === boutique.email || user.email===admin_email">Dodaj proizvod</router-link>
-        <button class="btn btn-info" style="border-radius: 5px;" v-if="user != null && user.email === boutique.email || user.email===admin_email">Broj posjeta:{{ boutique.view }}</button>
+        <router-link :to="{ name: 'addNewProduct' }" style="border-radius: 5px;" class="btn btn-info m-2" v-if="user && (user.email === boutique.email || user.email === admin_email)">Dodaj proizvod</router-link>
+<button class="btn btn-info" style="border-radius: 5px;" v-if="user && (user.email === boutique.email || user.email === admin_email)">Broj posjeta:{{ boutique.view }}</button>
 
         <div class="row px-xl-5">
             <div class="col-lg-8">
@@ -99,9 +99,6 @@
                     </div>
                 </div>
             </div>
-
-
-
                     <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
                         <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
                         <div class="product-item bg-light mb-4">
@@ -148,6 +145,8 @@
   </template>
 
   <script>
+
+
   export default {
 
 

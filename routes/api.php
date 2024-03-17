@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoutiquesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -20,15 +21,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::controller(BoutiquesController::class)->group(function(){
     Route::get('/allBoutiques','allBoutiques')->name('allBoutiques');
     Route::get('/{boutiqueName}','thisBoutique')->name('boutique-page');
 });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+
+
 
 Route::controller(ProductController::class)->prefix('products')->group(function () {
     Route::get('/sub-category/{subcategory_id}/detail','getProductsWithSubCategory')->name('getProductsWithSubCategory');
@@ -47,23 +49,32 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('/user/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
 
 
-    Route::group(['middleware' => 'web'], function () {
-        Route::controller(ProductController::class)->prefix('cart')->group(function(){
-            Route::post('/addToCart','addToCart')->name('addToCart');
-            Route::get('/cart-view','cartView')->name('cartView');
-            Route::post('/empty-cart','emptyCart')->name('emptyCart');
-            Route::post('/delete-product','deleteProductFromCart')->name('deleteProductFromCart');
+    Route::middleware('web')->group(function () {
+        Route::prefix('cart')->group(function () {
+            Route::post('/addToCart', [ProductController::class, 'addToCart'])->name('addToCart');
+            Route::get('/cart-view', [ProductController::class, 'cartView'])->name('cartView');
+            Route::post('/empty-cart', [ProductController::class, 'emptyCart'])->name('emptyCart');
+            Route::post('/delete-product', [ProductController::class, 'deleteProductFromCart'])->name('deleteProductFromCart');
+
         });
 
-        Route::controller(OrderController::class)->group(function(){
-            Route::post('/order/send-order','sendOrder')->name('sendOrder');
-            Route::get('/products/theBestSellingsProduct','theBestSellingProducts')->name('theBestSellingProducts');
+        Route::group(['prefix' => 'order'], function () {
+            Route::post('/send-order', [OrderController::class, 'sendOrder'])->name('sendOrder');
         });
+
+        Route::get('/products/theBestSellingsProduct', [OrderController::class, 'theBestSellingProducts'])->name('theBestSellingProducts');
     });
 
     Route::prefix('admin')->group(function(){
         Route::post('/add-new-boutique',[BoutiquesController::class,'addNewBoutique'])->name('addNewBoutique');
     });
+
+    Route::controller(FavoriteController::class)->group(function(){
+        Route::get('product/add-to-fav/{id}','addToFav')->middleware('auth')->name('addToFav');
+        Route::get('product/remove-fav/{id}', 'removeFromFavorites')->middleware('auth')->name('removeFromFavorites');
+        Route::get('products/all-fav','allFav')->name('allFav');
+    });
+
 
 
 Route::fallback(function () {

@@ -114,10 +114,10 @@
 </template>
 
 <script>
-// import CartLength from './CartLength.vue';
+
 
 export default {
-    // components:{CartLength},
+
 
     data() {
         return {

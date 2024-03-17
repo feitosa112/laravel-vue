@@ -25,38 +25,8 @@
         </div>
       </div>
 
-      <div class="row" style="height: 35wh;">
-        <div class="col-6 col-md-6 col-sm-6 col-lg-3  mb-2" v-for="product in paginatedProducts" :key="product.id">
-          <div class="card" id="card" style="max-width: 300px; box-shadow: 5px 5px 5px gray">
-            <router-link :to="{ name: 'thisProduct', params: { id: product.id, productName: removeSpace(product.name) }}" style="text-decoration: none;">
-              <div class="card-header">
-                <img class="img-fluid w-100" :src="getAbsoluteImagePath(product.boutique[0].name, product.image1)" alt=""/>
-                <div class="product-img position-relative overflow-hidden"></div>
-              </div>
+      <Kartica :products="paginatedProducts"></Kartica>
 
-              <div class="card-body" style="padding: 0">
-                <h3 class="card-title naslov">{{ product.name }}</h3>
-                <h4
-                  class="card-subtitle mb-2 float-start naslov"
-                  style="color: #65B741"
-                >
-                  {{ product.price }}KM
-                </h4>
-                <small class="card-subtitle mb-2 float-right podnaslov" v-if="product.old_price != 0" style="color: #B80000">
-                  <del>{{ product.old_price }} KM</del>
-                </small>
-              </div>
-            </router-link>
-            <div class="card-footer" style="padding: 2px">
-              <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name) }}" v-for="boutique in product.boutique" :key="boutique.id">
-                <button style="border-radius: 5px" class="btn btn-info btn-sm float-end mobile-button">
-                  Posjeti butik: <b>{{ boutique.name }}</b>
-                </button>
-              </router-link>
-            </div>
-          </div>
-        </div>
-      </div>
 
     <div class="pagination justify-content-center" v-if="products.length > 0">
       <button @click="prevPage" class="btn btn-outline-info me-2" >Prethodna</button>
@@ -67,7 +37,9 @@
 </template>
 
 <script>
+import Kartica from './Kartica.vue'
     export default {
+        components:{Kartica},
         data(){
             return {
                 products: [],

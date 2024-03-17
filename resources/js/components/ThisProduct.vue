@@ -6,13 +6,13 @@
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner bg-light">
                         <div class="carousel-item active">
-                            <img class="w-100 h-100" :src="getAbsoluteImagePath(product.boutique[0].name,product.image1)" alt="Trenutno nema slike">
+                            <img class="w-100 h-100" v-for="product1 in product.boutique" :src="getAbsoluteImagePath(product1.name,product.image1)" alt="Trenutno nema slike">
                         </div>
-                        <div class="carousel-item" v-if="product.image2 != ''">
-                            <img class="w-100 h-100"  :src="getAbsoluteImagePath(product.boutique[0].name,product.image2)" alt="Trenutno nema slike">
+                        <div class="carousel-item" v-if="product.image2 != null">
+                            <img class="w-100 h-100" v-for="product1 in product.boutique"  :src="getAbsoluteImagePath(product1.name,product.image2)" alt="Trenutno nema slike">
                         </div>
-                        <div class="carousel-item" v-if="product.image3 !=''">
-                            <img class="w-100 h-100"  :src="getAbsoluteImagePath(product.boutique[0].name,product.image3)" alt="Trenutno nema slike">
+                        <div class="carousel-item" v-if="product.image3 !=null">
+                            <img class="w-100 h-100" v-for="product1 in product.boutique"  :src="getAbsoluteImagePath(product1.name,product.image3)" alt="Trenutno nema slike">
                         </div>
 
                     </div>
