@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BoutiquesModel;
 use App\Models\ProductsModel;
 use App\Models\SubcategoryModel;
 use App\Repositories\ProductRepository;
@@ -217,6 +218,9 @@ if ($request->hasFile('image3')) {
         return response()->json(['error' => $e->getMessage(), 'trace' => $e->getTrace()], 500);
     }
 }
+
+
+
 
 
 

@@ -16,7 +16,7 @@ import Cart from "./components/Cart.vue"
 import AllProducts from './components/AllProducts.vue'
 import AddNewProduct from './components/AddNewProduct-owner.vue'
 import AddNewBoutique from './components/Admin_add_new_boutique.vue'
-
+import MyFavorites from './components/MyFavorites.vue';
 
 
 
@@ -35,7 +35,9 @@ const router = createRouter({
         {path:'/cart/cart-view',component:Cart,name:'cartView'},
         {path:'/products/all-products',component:AllProducts,name:'allProducts'},
         {path:'/owner/add-new-product',component:AddNewProduct,name:'addNewProduct'},
-        {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'}
+        {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'},
+        {path:'/user/my-favorite',component:MyFavorites,name:'myFavorite'}
+
 
 
 

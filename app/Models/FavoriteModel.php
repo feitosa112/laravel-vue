@@ -14,4 +14,8 @@ class FavoriteModel extends Model
         'user_id',
     ];
     use HasFactory;
+
+    public function product(){
+        return $this->hasMany(ProductsModel::class,'id','product_id');
+    }
 }

@@ -28,6 +28,8 @@
 
                             <router-link class="nav-item nav-link" :to="{name:'addNewBoutique'}" v-if="user != null && user.email === admin_email">Add boutique</router-link>
 
+                            <router-link class="nav-item nav-link" :to="{name:'myFavorite'}" v-if="user != null">My favorites</router-link>
+
 
                         </div>
                         <div class="navbar-nav ml-auto py-0 d-lg-block">
