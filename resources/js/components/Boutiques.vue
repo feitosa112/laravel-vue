@@ -7,24 +7,25 @@
         <Search></Search>
         <div class="row">
 
-            <Najprodavaniji/>
-            <div class="col-sm-12 col-md-12 col-lg-8 d-flex flex-wrap">
+            <!-- <Najprodavaniji/> -->
+            <div class="col-sm-12 col-md-12 col-lg-12 d-flex flex-wrap">
                 <div class="row">
                     <div class="col-5 col-md-5 col-sm-5 col-sm-ms-2 col-lg-3 mb-2 " v-for="boutique in boutiques" :key="boutique.id">
+                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" style="text-decoration: none;">
                         <div class="card" style="border-radius: 10px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
                             <img :src="getAbsoluteImagePath(boutique.name, boutique.image)" class="card-img-top" alt="Slika butika" style="object-fit: cover; height: 170px; border-radius: 10px 10px 0 0;">
 
                             <h5 class="card-title text-center">{{ boutique.name }}</h5>
-                            <p class="card-text text-center" style="font-size: 9px;">{{ boutique.address }}</p>
 
-                        <div class="card-footer">
-                        <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name)}}" class="btn btn-primary btn-block" style="border-radius: 0 0 10px 10px;">Pogledaj</router-link>
+                            <div class="card-footer d-flex align-items-center justify-content-center">
+                               <i class="fa-solid fa-location-dot me-1" style="font-size: 9px;"></i><p class="card-text" style="font-size: 9px;">{{ boutique.address }}</p>
+                            </div>
                         </div>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
-            <Najnoviji/>
+            <!-- <Najnoviji/> -->
         </div>
 
 

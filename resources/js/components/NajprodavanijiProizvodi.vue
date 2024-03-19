@@ -1,17 +1,24 @@
 <template>
     <div class="col-2 col-sm-12 col-lg-2 col-md-12 d-none d-lg-block">
-                <small>Najprodavaniji proizvodi</small>
+                <small class="">Najprodavaniji proizvodi</small>
 
                 <div class="row mb-2" v-if="theBestSellingsProduct.length>0" v-for="product in theBestSellingsProduct" :key="product.product && product.product.id">
   <router-link :to="{name:'thisProduct',params:{id:product.product && product.product.id, productName: removeSpace(product.product.name)}}">
-    <div class="col-3">
-      <img :src="getAbsoluteImagePath((product.product && product.product.boutique[0] && product.product.boutique[0].name) || '', product.product && product.product.image1)" style="height: 30px;" alt="">
-    </div>
-    <div class="col-8">
-      <small class="float-start" style="margin-left: 8px; text-decoration: none; color: brown;font-size: 8px;">{{ product.product && product.product.name }}</small>
-      <a href="" class="badge badge-success bg-sm float-end" style="font-size: 8px;">{{ product.product && product.product.price }}</a>
+    <div class="card">
+    <div class="card-head">
+        <!-- Slika proizvoda -->
+        <img :src="getAbsoluteImagePath((product.product && product.product.boutique[0] && product.product.boutique[0].name) || '', product.product && product.product.image1)" style="height: 85px;width: 70%;" alt="">
 
+        <!-- Ime proizvoda -->
+        <small class="text-center" style="position: absolute; top: 0; left: 0; margin: 8px; text-decoration: none; color: brown; font-size: 10px;">{{ product.product && product.product.name }}</small>
+
+        <!-- Cijena proizvoda -->
+        <a href="" class="badge badge-success bg-sm float-end" style="position: absolute; bottom: 0; right: 0; margin: 8px; font-size: 8px;">{{ product.product && product.product.price }}</a>
     </div>
+</div>
+
+
+
   </router-link>
 </div>
             </div>

@@ -22,7 +22,7 @@
                 </router-link>
                 <div class="card-footer" style="padding: 2px">
                     <router-link :to="{ name: 'boutique-page', params: { boutiqueName: removeSpace(boutique.name) }}" v-for="boutique in product.boutique" :key="boutique.id">
-                        <button style="border-radius: 5px" class="btn btn-info btn-sm float-end mobile-button">Posjeti butik: <b>{{ boutique.name }}</b></button>
+                        <button style="border-radius: 5px" class="badge badge-info bg-sm float-end mobile-button"><b>{{ boutique.name }}</b></button>
                     </router-link>
                 </div>
             </div>

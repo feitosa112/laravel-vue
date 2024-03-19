@@ -1,7 +1,7 @@
 <template>
 
     <div class="container-fluid bg-dark mb-30" style="margin-top: -25px;">
-        <div class="row px-xl-5">
+        <div class="row px-xl-5 ">
             <Categories/>
             <div class="col-lg-9">
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
@@ -70,3 +70,7 @@ export default {
 };
 
 </script>
+
+<style scoped>
+
+</style>
