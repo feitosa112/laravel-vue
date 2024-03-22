@@ -116,8 +116,13 @@
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                     <h5>{{ product.price }} KM</h5><h6 class="text-muted ml-2" v-if="product.old_price != 0.00"><del>{{ product.old_price }}</del></h6>
                                 </div>
+                                <div class="float-left">
+                                <a href="" class="badge badge-danger bg-sm me-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</a>
+                                <a href="" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</a>
 
                             </div>
+                            </div>
+
                         </div>
                     </router-link>
                     </div>
