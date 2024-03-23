@@ -100,8 +100,10 @@
                 </div>
             </div>
                     <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
-                        <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
+
                         <div class="product-item bg-light mb-4">
+                        <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
+
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" :src="getAbsoluteImagePath(boutique.name,product.image1)" alt="">
                                 <div class="product-action">
@@ -111,20 +113,31 @@
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
+
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
                                 <div class="d-flex align-items-center justify-content-center mt-2">
                                     <h5>{{ product.price }} KM</h5><h6 class="text-muted ml-2" v-if="product.old_price != 0.00"><del>{{ product.old_price }}</del></h6>
                                 </div>
-                                <div class="float-left">
-                                <a href="" class="badge badge-danger bg-sm me-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</a>
-                                <a href="" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</a>
+
+
+
 
                             </div>
+                        </router-link>
+
+                            <div class="float-left">
+                                <button class="badge badge-danger bg-sm me-1" @click="deleteProduct(product.id)" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</button>
+                                <div v-if="deleted" class="alert alert-success">{{ deletedProduct }}</div>
+                                <a href="" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</a>
                             </div>
+
+
+
+
 
                         </div>
-                    </router-link>
+
                     </div>
 
 
@@ -162,7 +175,9 @@
         user:window.user || null,
         searchQuery: '',
         suggestions: [],
-        admin_email:'112kuzmanovic@gmail.com'
+        admin_email:'112kuzmanovic@gmail.com',
+        deletedProduct:'Uspjesno ste obrisali proizvod',
+        deleted:false,
       };
     },
     mounted() {
@@ -179,6 +194,23 @@
       }
     },
     methods: {
+        deleteProduct(productId) {
+            const id = productId;
+            if (confirm('Are you sure you want to delete this product?')) {
+                this.$axios.get(`http://127.0.0.1:8000/api/products/delete-product/${id}`)
+                    .then(response => {
+                        // Ovdje možete dodati logiku nakon uspješnog brisanja proizvoda
+                        console.log('Product deleted successfully:', response.data);
+
+                        this.deleted = true;
+                        this.fetchBoutiqueDetails();
+                    })
+                    .catch(error => {
+                        // Ovdje možete obraditi greške prilikom brisanja proizvoda
+                        console.error('Error deleting product:', error);
+                    });
+            }
+        },
         filterProductsOnCurrentPage() {
   const query = this.searchQuery.toLowerCase();
 

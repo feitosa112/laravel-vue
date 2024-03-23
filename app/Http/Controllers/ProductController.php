@@ -219,6 +219,21 @@ if ($request->hasFile('image3')) {
     }
 }
 
+public function deleteProduct($id) {
+    try {
+        $product = ProductsModel::findOrFail($id);
+        $product->delete();
+
+        Log::info('Proizvod je uspješno obrisan.', ['product_id' => $id]);
+
+        return response()->json(['message' => 'Uspješno brisanje proizvoda']);
+    } catch (\Exception $e) {
+        Log::error('Došlo je do greške prilikom brisanja proizvoda.', ['product_id' => $id, 'exception' => $e->getMessage()]);
+
+        return response()->json(['message' => 'Došlo je do greške prilikom brisanja proizvoda.'], 500);
+    }
+}
+
 
 
 

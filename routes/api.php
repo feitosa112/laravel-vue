@@ -38,6 +38,8 @@ Route::controller(ProductController::class)->prefix('products')->group(function 
     Route::get('/product/{id}/{productName}','getThisProduct')->name('thisProduct');
     Route::get('/all-products','allProducts')->name('allProducts');
     Route::post('/add-new-product','addNewProduct')->name('addNewProduct');
+    Route::get('/delete-product/{id}','deleteProduct')->name('deleteProduct');
+
 });
 
 Route::controller(CategoryController::class)->group(function(){
