@@ -6,9 +6,7 @@
 @section('content')
 
 
-<script>
-    window.user = @json($user ?? null);
-</script>
+
 <div id="app">
 
 </div>

@@ -19,3 +19,6 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 // Route::get('/products/all-products',[ProductController::class,'allProducts'])->name('allProducts');
 
+Route::get('/{any}', function () {
+    return view('home');
+})->where('any', '.*');

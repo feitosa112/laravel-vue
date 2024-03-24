@@ -85,9 +85,7 @@ Route::fallback(function () {
 
 Route::get('/user/isLoged',[HomeController::class,'getLogedUser'])->name('isLogedUser');
 
-Route::get('/{any}', function () {
-    return view('home');
-})->where('any', '.*');
+
 
 
 

@@ -26,6 +26,7 @@ const app = createApp(App)
 const router = createRouter({
     history:createWebHistory(),
     mode:'hash',
+    base:'/',
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
         { path: '/products/sub-category/:subcategory_id/detail', component: ProductsWithSubCategory, name: 'getProductsWithSubCategory'},
