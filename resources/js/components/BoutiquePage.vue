@@ -76,55 +76,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 pb-1">
-                <div class="d-flex align-items-center justify-content-between mb-4">
+            <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
 
-                    <div class="ml-2">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Sorting</button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">Latest</a>
-                                <a class="dropdown-item" href="#">Popularity</a>
-                                <a class="dropdown-item" href="#">Best Rating</a>
-                            </div>
-                        </div>
-                        <div class="btn-group ml-2">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">Showing</button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#">10</a>
-                                <a class="dropdown-item" href="#">20</a>
-                                    <a class="dropdown-item" href="#">30</a>
-                            </div>
+                <div class="product-item bg-light mb-4">
+
+
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid w-100" :src="getAbsoluteImagePath(boutique.name,product.image1)" alt="">
+                        <i v-if="user" :class="{ 'fas fa-heart': isInFavorites(product.id), 'far fa-heart': !isInFavorites(product.id), 'text-danger': isInFavorites(product.id) }" @click="toggleFavorite(product)" style="position: absolute; top: 5px; right: 5px; font-size: 20px;"></i>
+                    </div>
+                    <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
+
+                    <div class="text-center py-4">
+                        <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <h5>{{ product.price }} KM</h5><h6 class="text-muted ml-2" v-if="product.old_price != 0.00"><del>{{ product.old_price }}</del></h6>
                         </div>
                     </div>
-                </div>
-            </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
-
-                        <div class="product-item bg-light mb-4">
-                        <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
-
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" :src="getAbsoluteImagePath(boutique.name,product.image1)" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>{{ product.price }} KM</h5><h6 class="text-muted ml-2" v-if="product.old_price != 0.00"><del>{{ product.old_price }}</del></h6>
-                                </div>
-
-
-
-
-                            </div>
-                        </router-link>
+                    </router-link>
 
                             <div class="float-left">
                                 <button class="badge badge-danger bg-sm me-1" @click="deleteProduct(product.id)" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</button>
@@ -142,17 +111,7 @@
 
 
 
-                    <div class="col-12">
-                        <nav>
-                          <ul class="pagination justify-content-center">
-                            <!-- <li class="page-item disabled"><a class="page-link" href="#">Previous</span></a></li> -->
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                          </ul>
-                        </nav>
-                    </div>
+
                 </div>
             </div>
             <!-- Shop Product End -->
@@ -178,11 +137,18 @@
         admin_email:'112kuzmanovic@gmail.com',
         deletedProduct:'Uspjesno ste obrisali proizvod',
         deleted:false,
+        inFavorites: [],
+
       };
     },
     mounted() {
         console.log('Mounted...');
       this.fetchBoutiqueDetails();
+    },
+    created(){
+        if (this.user) {
+            this.loadFavorites();
+        }
     },
 
     computed:{
@@ -291,6 +257,45 @@ getAbsoluteImagePath(boutiqueName,imageName) {
     removeSpace(name){
         return name.replace(/\s+/g, "-");
     },
+
+    async loadFavorites() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/products/all-fav');
+                this.inFavorites = response.data[1];
+                console.log('MyFav:',response.data[1]);
+            } catch (error) {
+                console.error('Error loading favorites:', error);
+            }
+        },
+        toggleFavorite(product) {
+            if (this.isInFavorites(product.id)) {
+                this.removeFromFavorites(product.id);
+                // this.$emit('toggle-favorite', product.id);
+            } else {
+                this.addToFavorites(product.id);
+            }
+        },
+        isInFavorites(productId) {
+            return this.inFavorites.some(favorite => favorite.product_id === productId);
+        },
+        async addToFavorites(productId) {
+            try {
+                await axios.get(`http://127.0.0.1:8000/api/product/add-to-fav/${productId}`);
+                this.inFavorites.push({ product_id: productId });
+            } catch (error) {
+                console.error('Error adding to favorites:', error);
+            }
+        },
+        async removeFromFavorites(productId) {
+            try {
+                await axios.get(`http://127.0.0.1:8000/api/product/remove-fav/${productId}`);
+                this.inFavorites = this.inFavorites.filter(favorite => favorite.product_id !== productId);
+                this.$emit('remove-from-favorites', productId);
+                console.log('Remove product kartica:',productId);
+            } catch (productId) {
+                console.error('Error removing from favorites(komponenta kartica):', productId);
+            }
+        }
 
 
     },
