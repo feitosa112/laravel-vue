@@ -25,7 +25,7 @@ const app = createApp(App)
 
 const router = createRouter({
     history:createWebHistory(),
-    mode:'hash',
+    mode:'history',
     base:'/',
     routes:[
         {path:'/',component:Boutiques,name:'boutiques-page'},
@@ -38,13 +38,6 @@ const router = createRouter({
         {path:'/owner/add-new-product',component:AddNewProduct,name:'addNewProduct'},
         {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'},
         {path:'/user/my-favorite',component:MyFavorites,name:'myFavorite'}
-
-
-
-
-
-
-
 
     ]
 });

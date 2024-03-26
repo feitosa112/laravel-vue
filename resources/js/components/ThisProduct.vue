@@ -188,7 +188,7 @@
 
         mounted(){
             this.getProduct();
-            this.allProducts();
+
         },
         methods:{
             async submitForm() {
@@ -253,6 +253,10 @@
             getAbsoluteImagePath(boutiqueName,imageName) {
                 return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
     },
+        },
+
+        watch: {
+        '$route': 'getProduct'
         },
 
 

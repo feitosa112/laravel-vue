@@ -102,6 +102,8 @@
       removeSpace(name){
         return name.replace(/\s+/g, "-");
     }
-        }
+        },
+
+
     }
 </script>

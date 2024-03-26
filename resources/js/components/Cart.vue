@@ -108,7 +108,7 @@
     <div class="alert alert-success" v-if="orderMsg">{{ orderMsg }}</div>
 
     <form @submit.prevent="cartEmpty">
-        <button class="btn btn-info" type="submit">Empty cart</button>
+        <button class="btn btn-info" style="border-radius:5px;" type="submit">Empty cart</button>
     </form>
     <div class="alert alert-success" v-if="emptyCartMsg">{{ emptyCartMsg }}</div>
 </template>

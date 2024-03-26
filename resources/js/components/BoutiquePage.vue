@@ -80,12 +80,12 @@
 
                 <div class="product-item bg-light mb-4">
 
+                    <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
 
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" :src="getAbsoluteImagePath(boutique.name,product.image1)" alt="">
                         <i v-if="user" :class="{ 'fas fa-heart': isInFavorites(product.id), 'far fa-heart': !isInFavorites(product.id), 'text-danger': isInFavorites(product.id) }" @click="toggleFavorite(product)" style="position: absolute; top: 5px; right: 5px; font-size: 20px;"></i>
                     </div>
-                    <router-link :to="{name:'thisProduct',params:{id:product.id,productName: removeSpace(product.name)}}">
 
                     <div class="text-center py-4">
                         <a class="h6 text-decoration-none text-truncate" href="">{{ product.name }}</a>
@@ -307,10 +307,13 @@ getAbsoluteImagePath(boutiqueName,imageName) {
     },
 
     watch:{
+        '$route': 'fetchBoutiqueDetails',
         cartItems(newCartItems) {
       // Update the provide data when cartItems change
       this.$root.cartItems = newCartItems;
     },
+
+
     }
 
 
