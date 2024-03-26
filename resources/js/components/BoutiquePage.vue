@@ -75,6 +75,8 @@
                 </form>
             </div>
         </div>
+        <div v-if="deleted" class="alert alert-success">{{ deletedProduct }}</div>
+
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6" v-for="product in filterProducts">
 
@@ -97,7 +99,6 @@
 
                             <div class="float-left">
                                 <button class="badge badge-danger bg-sm me-1" @click="deleteProduct(product.id)" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</button>
-                                <div v-if="deleted" class="alert alert-success">{{ deletedProduct }}</div>
                                 <a href="" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</a>
                             </div>
 

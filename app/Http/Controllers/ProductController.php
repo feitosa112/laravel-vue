@@ -207,6 +207,7 @@ if ($request->hasFile('image3')) {
         $product->cart_total = floatval($requestData['price']);
         $product->description = $requestData['description'];
         $product->featured = 0;
+        $product->view = 0;
 
         // Čuvanje proizvoda
         $product->save();
