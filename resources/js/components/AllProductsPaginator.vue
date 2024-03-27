@@ -49,6 +49,8 @@ import Kartica from './Kartica.vue'
                 perPage: '',
                 currentPage: 1,
                 totalPages: 1,
+                apiUrl: window.apiUrl
+
             }
         },
 
@@ -75,7 +77,7 @@ async allProducts() {
         const page = this.currentPage;
 
         const response = await this.$axios.get(
-          `http://127.0.0.1:8000/api/products/all-products`
+          `${this.apiUrl}/products/all-products`
         );
         console.log('Response dataaaa...',response.data);
         console.log('Ovo je...',response.data[0].data);

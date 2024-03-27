@@ -20,7 +20,7 @@ import MyFavorites from './components/MyFavorites.vue';
 
 
 
-
+window.apiUrl = 'http://127.0.0.1:8000/api'
 const app = createApp(App)
 
 const router = createRouter({

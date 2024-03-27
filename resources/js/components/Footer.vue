@@ -80,6 +80,8 @@
                 email:'112kuzmanovic@gmail.com',
                 tel:'066 462 107',
                 boutiques:[],
+                apiUrl: window.apiUrl
+
             }
         },
         mounted(){
@@ -89,7 +91,7 @@
         methods:{
             async fetchBoutiques() {
         try {
-            const response = await this.$axios.get('http://127.0.0.1:8000/api/allBoutiques');
+            const response = await this.$axios.get(`${this.apiUrl}/allBoutiques`);
             this.boutiques = response.data.allBoutiques;
             this.featuredProducts = response.data.featuredProducts;
 

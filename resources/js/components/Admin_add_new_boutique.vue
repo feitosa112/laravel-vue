@@ -41,7 +41,9 @@
                 image2: null,
                 image3: null,
                 save_message:'Uspjesno ste dodali novi butik',
-                phoneError: ''
+                phoneError: '',
+                apiUrl: window.apiUrl
+
             }
         },
         //METHODS START
@@ -63,7 +65,7 @@
                 }
 
                 try {
-                    const response = await this.$axios.post('http://127.0.0.1:8000/api/admin/add-new-boutique', formData,{
+                    const response = await this.$axios.post(`${this.apiUrl}/admin/add-new-boutique`, formData,{
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Accept': 'application/json',

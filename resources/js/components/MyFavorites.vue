@@ -16,6 +16,8 @@ import Kartica from './Kartica.vue'
             return {
                 products:[],
                 inFavorites:[],
+                apiUrl: window.apiUrl
+
             }
         },
         mounted(){
@@ -25,7 +27,7 @@ import Kartica from './Kartica.vue'
         methods:{
             async myFavorites(){
                 try {
-                    const response = await axios.get('http://127.0.0.1:8000/api/products/all-fav');
+                    const response = await axios.get(`${this.apiUrl}/products/all-fav`);
                     this.products = response.data[0];
                     this.inFavorites = response.data[1];
 

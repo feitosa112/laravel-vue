@@ -38,6 +38,8 @@ export default {
         return {
             user: window.user || null,
             inFavorites: [],
+            apiUrl: window.apiUrl
+
         }
     },
     props: {
@@ -68,7 +70,7 @@ export default {
         },
         async loadFavorites() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/products/all-fav');
+                const response = await axios.get(`${this.apiUrl}/products/all-fav`);
                 this.inFavorites = response.data[1];
                 console.log('MyFav:',response.data[1]);
             } catch (error) {
@@ -88,7 +90,7 @@ export default {
         },
         async addToFavorites(productId) {
             try {
-                await axios.get(`http://127.0.0.1:8000/api/product/add-to-fav/${productId}`);
+                await axios.get(`${this.apiUrl}/product/add-to-fav/${productId}`);
                 this.inFavorites.push({ product_id: productId });
             } catch (error) {
                 console.error('Error adding to favorites:', error);

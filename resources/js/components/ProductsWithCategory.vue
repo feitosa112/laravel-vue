@@ -17,6 +17,8 @@
             return {
                 products:[],
                 subCategory:[],
+                apiUrl: window.apiUrl
+
             }
         },
         mounted(){
@@ -31,7 +33,7 @@
 
 
         try {
-            const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/category/${category_id}`);
+            const response = await this.$axios.get(`${this.apiUrl}/products/category/${category_id}`);
             console.log('API Response:', response.data);
             // Obrada podataka kada je status 200 OK
             this.products = response.data.products;

@@ -29,6 +29,8 @@
         data(){
             return {
                 theBestSellingsProduct:[],
+                apiUrl: window.apiUrl
+
             }
         },
         mounted(){
@@ -37,7 +39,7 @@
         methods:{
             async theBestSellingProducts() {
         try {
-            const response = await this.$axios.get('http://127.0.0.1:8000/api/products/theBestSellingsProduct');
+            const response = await this.$axios.get(`${this.apiUrl}/products/theBestSellingsProduct`);
             this.theBestSellingsProduct = response.data;
             console.log('theBestSellingsProducts:',response.data)
             console.log('theBestSellingsProducts:',this.theBestSellingProducts)

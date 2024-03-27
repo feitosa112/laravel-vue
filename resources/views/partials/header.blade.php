@@ -3,7 +3,8 @@
 <head>
 <base href="/">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Pronađite najbolje butike za kupovinu garderobe. Pretražite širok asortiman odjeće, obuće i modnih dodataka u našem direktoriju butika. Saznajte više!" />
+
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

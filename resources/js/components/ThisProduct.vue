@@ -182,6 +182,8 @@
                 message:null,
                 error:null,
                 productInCart:false,
+                apiUrl: window.apiUrl
+
 
             }
         },
@@ -205,7 +207,7 @@
 
             // Napravite HTTP POST zahtev ka Laravel serveru
             try {
-                const response = await axios.post(`http://127.0.0.1:8000/api/cart/addToCart`, formData);
+                const response = await axios.post(`${this.apiUrl}/cart/addToCart`, formData);
                 // Obradite odgovor ako je potrebno
                 console.log(response.data);
                 this.cart = response.data
@@ -228,7 +230,7 @@
                 const id = this.$route.params.id;
 
                 try {
-                    const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/product/${id}/${productName}`);
+                    const response = await this.$axios.get(`${this.apiUrl}/products/product/${id}/${productName}`);
                     console.log('API Response:', response.data);
                     this.product = response.data;
                     this.productName = response.data.name;

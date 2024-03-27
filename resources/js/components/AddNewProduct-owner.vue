@@ -139,6 +139,9 @@
        error: '',
        addProduct:false,
        selectedColor: '',
+       apiUrl: window.apiUrl
+
+
 
          // Dodao sam error u data deo
       };
@@ -171,7 +174,8 @@
         }
         console.log('name:',formData.name);
   try {
-    const response = await this.$axios.post('http://127.0.0.1:8000/api/products/add-new-product', formData,{
+
+    const response = await this.$axios.post(`${this.apiUrl}/products/add-new-product`, formData,{
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Accept': 'application/json',
@@ -203,7 +207,8 @@ isColorSelected(color) {
 
       async getAllCategories() {
         try {
-          const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
+
+          const odg = await this.$axios.get(`${this.apiUrl}/boutique/allCategories`);
           this.categories = odg.data.allCategories;
           console.log('AllCat:', this.categories);
           this.loadSubcategories();
@@ -216,7 +221,8 @@ isColorSelected(color) {
     if (this.selectedCategory) {
         const category = this.selectedCategory;
         try {
-            const response = await this.$axios.get(`http://127.0.0.1:8000/api/category/sub-cat/${category}`);
+
+            const response = await this.$axios.get(`${this.apiUrl}/category/sub-cat/${category}`);
             this.subcategories = response.data;
             console.log('Subcategories:', response.data);
         } catch (error) {
@@ -235,7 +241,8 @@ isColorSelected(color) {
         console.log(this.user.id);
         const id = this.user.id;
         try {
-          const response = await this.$axios.get(`http://127.0.0.1:8000/api/user/email/${id}`);
+
+          const response = await this.$axios.get(`${this.apiUrl}/user/email/${id}`);
           this.boutique = response.data;
           console.log('Boutique:', response.data);
         } catch (error) {

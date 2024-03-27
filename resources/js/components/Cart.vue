@@ -126,7 +126,8 @@ export default {
             deleteProductFromCart: null,
             totalSum: 0,
             orderMsg:null,
-            phoneError: ''
+            phoneError: '',
+            apiUrl: window.apiUrl
 
 
         }
@@ -171,7 +172,7 @@ export default {
 
         async cartEmpty() {
             try {
-                const response = await axios.post(`http://127.0.0.1:8000/api/cart/empty-cart`);
+                const response = await axios.post(`${this.apiUrl}/cart/empty-cart`);
                 if (response.status === 200) {
                     this.emptyCartMsg = response.data.message;
                     // Dodajte zakašnjenje ovdje ako je potrebno
@@ -189,7 +190,7 @@ export default {
 
         async getCart() {
             try {
-                const response = await this.$axios.get(`http://127.0.0.1:8000/api/cart/cart-view`);
+                const response = await this.$axios.get(`${this.apiUrl}/cart/cart-view`);
 
                 // if(response.data.length > 0){
                 //     response.data.foreach(product => {
@@ -240,7 +241,7 @@ export default {
 
     };
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/order/send-order',orderData,{
+                const response = await axios.post(`${this.apiUrl}/order/send-order`,orderData,{
                     headers: {
             'X-CSRF-TOKEN': csrfToken, // Zamijenite sa stvarnom vrednošću CSRF tokena
         },
@@ -266,7 +267,7 @@ export default {
             }
             try {
 
-                const response = await this.$axios.post(`http://127.0.0.1:8000/api/cart/delete-product`, requestDat);
+                const response = await this.$axios.post(`${this.apiUrl}/cart/delete-product`, requestDat);
                 if (response.status === 200) {
                     this.deleteProductFromCart = response.data.message
                     this.getCart(); // Ažuriranje korpe nakon brisanja proizvoda

@@ -139,6 +139,8 @@
         deletedProduct:'Uspjesno ste obrisali proizvod',
         deleted:false,
         inFavorites: [],
+        apiUrl: window.apiUrl
+
 
       };
     },
@@ -164,7 +166,7 @@
         deleteProduct(productId) {
             const id = productId;
             if (confirm('Are you sure you want to delete this product?')) {
-                this.$axios.get(`http://127.0.0.1:8000/api/products/delete-product/${id}`)
+                this.$axios.get(`${this.apiUrl}/products/delete-product/${id}`)
                     .then(response => {
                         // Ovdje možete dodati logiku nakon uspješnog brisanja proizvoda
                         console.log('Product deleted successfully:', response.data);
@@ -202,7 +204,7 @@
         async fetchBoutiqueDetails() {
     const boutiqueName = this.$route.params.boutiqueName;
     try {
-        const response = await this.$axios.get(`http://127.0.0.1:8000/api/${boutiqueName}`);
+        const response = await this.$axios.get(`${this.apiUrl}/${boutiqueName}`);
         console.log('API Response:', response.data);
         // Obrada podataka kada je status 200 OK
         this.boutique = response.data;
@@ -261,7 +263,7 @@ getAbsoluteImagePath(boutiqueName,imageName) {
 
     async loadFavorites() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/products/all-fav');
+                const response = await axios.get(`${this.apiUrl}/products/all-fav`);
                 this.inFavorites = response.data[1];
                 console.log('MyFav:',response.data[1]);
             } catch (error) {
@@ -281,7 +283,7 @@ getAbsoluteImagePath(boutiqueName,imageName) {
         },
         async addToFavorites(productId) {
             try {
-                await axios.get(`http://127.0.0.1:8000/api/product/add-to-fav/${productId}`);
+                await axios.get(`${this.apiUrl}/product/add-to-fav/${productId}`);
                 this.inFavorites.push({ product_id: productId });
             } catch (error) {
                 console.error('Error adding to favorites:', error);
@@ -289,7 +291,7 @@ getAbsoluteImagePath(boutiqueName,imageName) {
         },
         async removeFromFavorites(productId) {
             try {
-                await axios.get(`http://127.0.0.1:8000/api/product/remove-fav/${productId}`);
+                await axios.get(`${this.apiUrl}/product/remove-fav/${productId}`);
                 this.inFavorites = this.inFavorites.filter(favorite => favorite.product_id !== productId);
                 this.$emit('remove-from-favorites', productId);
                 console.log('Remove product kartica:',productId);

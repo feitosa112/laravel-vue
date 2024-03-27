@@ -38,6 +38,8 @@ export default {
         return {
             products: [],
             allCat: [],
+            apiUrl: window.apiUrl
+
         };
     },
 
@@ -62,7 +64,7 @@ export default {
             const subcategory_id = this.$route.params.subcategory_id;
 
             try {
-                const response = await this.$axios.get(`http://127.0.0.1:8000/api/products/sub-category/${subcategory_id}/detail`);
+                const response = await this.$axios.get(`${this.apiUrl}/products/sub-category/${subcategory_id}/detail`);
                 console.log('API Response:', response.data);
                 // Obrada podataka kada je status 200 OK
                 this.products = response.data;
@@ -85,7 +87,7 @@ export default {
 
         async getAllCategories() {
         try {
-          const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
+          const odg = await this.$axios.get(`${this.apiUrl}/boutique/allCategories`);
           this.allCat = odg.data.allCategories;
 
 

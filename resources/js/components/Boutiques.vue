@@ -54,6 +54,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
 
         boutiques: [],
         featuredProducts:[],
+        apiUrl: window.apiUrl
 
 
       };
@@ -69,8 +70,9 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
 
 
       async fetchBoutiques() {
+
         try {
-            const response = await this.$axios.get('http://127.0.0.1:8000/api/allBoutiques');
+            const response = await this.$axios.get(`${this.apiUrl}/allBoutiques`);
             this.boutiques = response.data.allBoutiques;
             this.featuredProducts = response.data.featuredProducts;
 

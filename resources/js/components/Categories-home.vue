@@ -38,6 +38,7 @@ export default {
         return {
             allCat:[],
             productsInCategory:[],
+            apiUrl: window.apiUrl
 
         }
     },
@@ -50,7 +51,7 @@ export default {
   methods:{
     async getAllCategories() {
         try {
-          const odg = await this.$axios.get('http://127.0.0.1:8000/api/boutique/allCategories');
+          const odg = await this.$axios.get(`${this.apiUrl}/boutique/allCategories`);
           this.allCat = odg.data.allCategories;
           this.productsInCategory = odg.data.productsInCategory;
 
