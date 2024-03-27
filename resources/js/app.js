@@ -17,7 +17,7 @@ import AllProducts from './components/AllProducts.vue'
 import AddNewProduct from './components/AddNewProduct-owner.vue'
 import AddNewBoutique from './components/Admin_add_new_boutique.vue'
 import MyFavorites from './components/MyFavorites.vue';
-
+import ContactView from './components/ContactView.vue';
 
 
 window.apiUrl = 'http://127.0.0.1:8000/api'
@@ -37,7 +37,8 @@ const router = createRouter({
         {path:'/products/all-products',component:AllProducts,name:'allProducts'},
         {path:'/owner/add-new-product',component:AddNewProduct,name:'addNewProduct'},
         {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'},
-        {path:'/user/my-favorite',component:MyFavorites,name:'myFavorite'}
+        {path:'/user/my-favorite',component:MyFavorites,name:'myFavorite'},
+        {path:'/user/contact-view',component:ContactView,name:'contactView'},
 
     ]
 });

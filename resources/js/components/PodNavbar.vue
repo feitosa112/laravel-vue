@@ -23,7 +23,7 @@
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
-                            <a href="" class="nav-item nav-link">Contact</a>
+                            <router-link :to="{name:'contactView'}" class="nav-item nav-link">Contact</router-link>
                             <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodi</router-link>
 
                             <router-link class="nav-item nav-link" :to="{name:'addNewBoutique'}" v-if="user != null && user.email === admin_email">Add boutique</router-link>
