@@ -54,17 +54,22 @@
 import Categories from './Categories.vue';
 
 export default {
-
-
   components: { Categories },
   data() {
     return {
       componentKey: 0,
       user:window.user || null,
-      admin_email:'112kuzmanovic@gmail.com'
+      admin_email:'112kuzmanovic@gmail.com',
+
 
     };
   },
+
+
+
+
+
+
 
 
 };

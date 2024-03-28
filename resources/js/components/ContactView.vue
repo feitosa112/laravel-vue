@@ -34,6 +34,10 @@
                 message:this.message
             }
 
+            if(!window.user){
+                window.location.href = '/login';
+            }else{
+
             try {
                 const response = await this.$axios.post(`${this.apiUrl}/user/contact-message`, formData,{
                     headers: {
@@ -51,6 +55,8 @@
                 console.error('Došlo je do greške prilikom slanja poruke:', error);
 
   }
+}
+
             }
         }
     }
