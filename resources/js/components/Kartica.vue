@@ -98,7 +98,7 @@ export default {
         },
         async removeFromFavorites(productId) {
             try {
-                await axios.get(`http://127.0.0.1:8000/api/product/remove-fav/${productId}`);
+                await axios.get(`${this.apiUrl}/product/remove-fav/${productId}`);
                 this.inFavorites = this.inFavorites.filter(favorite => favorite.product_id !== productId);
                 this.$emit('remove-from-favorites', productId);
                 console.log('Remove product kartica:',productId);
