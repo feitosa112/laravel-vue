@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BoutiquesController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -47,8 +48,11 @@ Route::controller(CategoryController::class)->group(function(){
     Route::get('/category/sub-cat/{id}','allSubCategories')->name('allSubCategories');
 });
 
+    Route::prefix('user')->group(function(){
+        Route::get('/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
+        Route::post('/contact-message',[ContactController::class,'contactMsg'])->name('contactMsg');
 
-    Route::get('/user/email/{id}',[HomeController::class,'userBoutique'])->name('userBoutique');
+    });
 
 
     Route::middleware('web')->group(function () {
