@@ -18,7 +18,7 @@ import AddNewProduct from './components/AddNewProduct-owner.vue'
 import AddNewBoutique from './components/Admin_add_new_boutique.vue'
 import MyFavorites from './components/MyFavorites.vue';
 import ContactView from './components/ContactView.vue';
-
+import EditView from './components/EditView.vue'
 
 window.apiUrl = 'http://127.0.0.1:8000/api'
 const app = createApp(App)
@@ -39,6 +39,8 @@ const router = createRouter({
         {path:'/admin/add-new-boutique',component:AddNewBoutique,name:'addNewBoutique'},
         {path:'/user/my-favorite',component:MyFavorites,name:'myFavorite'},
         {path:'/user/contact-view',component:ContactView,name:'contactView'},
+        {path:'/admin/edit-view/:id',component:EditView,name:'editView'},
+
 
     ]
 });

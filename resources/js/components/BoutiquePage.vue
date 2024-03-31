@@ -99,7 +99,7 @@
 
                             <div class="float-left">
                                 <button class="badge badge-danger bg-sm me-1" @click="deleteProduct(product.id)" v-if="user && (user.email === boutique.email || user.email === admin_email)">Delete</button>
-                                <a href="" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</a>
+                               <router-link :to="{name:'editView',params:{id:product.id}}" class="badge badge-warning bg-sm ms-1" v-if="user && (user.email === boutique.email || user.email === admin_email)">Edit</router-link>
                             </div>
 
 

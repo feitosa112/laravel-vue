@@ -73,6 +73,7 @@ Route::controller(CategoryController::class)->group(function(){
 
     Route::prefix('admin')->group(function(){
         Route::post('/add-new-boutique',[BoutiquesController::class,'addNewBoutique'])->name('addNewBoutique');
+        Route::get('/edit-product/{id}',[ProductController::class,'editProduct'])->name('editProduct');
     });
 
     Route::controller(FavoriteController::class)->group(function(){
