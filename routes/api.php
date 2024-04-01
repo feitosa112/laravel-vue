@@ -74,6 +74,7 @@ Route::controller(CategoryController::class)->group(function(){
     Route::prefix('admin')->group(function(){
         Route::post('/add-new-boutique',[BoutiquesController::class,'addNewBoutique'])->name('addNewBoutique');
         Route::get('/edit-product/{id}',[ProductController::class,'editProduct'])->name('editProduct');
+        Route::put('/update-product/{id}',[ProductController::class,'updateProduct'])->name('updateProduct');
     });
 
     Route::controller(FavoriteController::class)->group(function(){

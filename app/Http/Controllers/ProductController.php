@@ -235,15 +235,64 @@ public function deleteProduct($id) {
     }
 }
 
+public function editProduct($id){
+    try {
+        $product = ProductsModel::with('boutique')->where('id',$id)->first();
+        if($product){
+            return response()->json($product);
+        }else{
+        return response()->json(['message' => 'Nepostojeci proizvod.'], 500);
+        }
+
+    }catch (\Exception $e) {
+        Log::error('Došlo je do greške.', ['message' => $e->getMessage()]);
+
+        return response()->json(['message' => 'Došlo je do greške.'], 500);
+    }
+}
 
 
 
+public function updateProduct(Request $request, $id)
+{
+    // Pronalaženje proizvoda po ID-u
+    $product = ProductsModel::findOrFail($id);
+
+    // Pronalaženje butika koji je vlasnik proizvoda
+    $boutique = BoutiquesModel::where('id',$product->boutique_id)->first();
+    $requestData = $request->all();
+    // Ažuriranje atributa proizvoda sa podacima iz zahteva
+
+        $product->name = $requestData['name'];
+        $product->description =$requestData['description'];
+        $product->price = $requestData['price'];
+        $product->old_price= $requestData['old_price'];
+        $product->color = $requestData['color'];
+        $product->size = $requestData['size'];
 
 
+    // Ako su poslate nove slike, čuvamo ih i ažuriramo putanje u bazi podataka
+    if ($request->hasFile('image1')) {
+        $image1 = $request->file('image1')->store('images/'.$boutique->name);
+        $product->image1 = $image1;
+    }
 
+    if ($request->hasFile('image2')) {
+        $image2 = $request->file('image2')->store('images/'.$boutique->name);
+        $product->image2 = $image2;
+    }
 
+    if ($request->hasFile('image3')) {
+        $image3 = $request->file('image3')->store('images/'.$boutique->name);
+        $product->image3 = $image3;
+    }
 
+    // Čuvamo ažurirane informacije o proizvodu
+    $product->save();
 
+    // Vraćanje odgovora kao JSON sa porukom o uspešnom ažuriranju
+    return response()->json(['message' => 'Product updated successfully']);
+}
 
     }
 
