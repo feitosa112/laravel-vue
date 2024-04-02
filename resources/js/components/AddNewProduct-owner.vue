@@ -205,7 +205,7 @@ isColorSelected(color) {
             this.selectedColors.push(color);
         }
     },
-
+    // Metoda za prikaz svih kategorija da bi se mogla odabrati kategorija za proizvod koji se unosi
       async getAllCategories() {
         try {
 
@@ -217,7 +217,7 @@ isColorSelected(color) {
           console.error('Error categories', error);
         }
       },
-
+    //   Metoda za ucitavanje podkategorija nza izabranu kategoriju
       async loadSubcategories() {
     if (this.selectedCategory) {
         const category = this.selectedCategory;
