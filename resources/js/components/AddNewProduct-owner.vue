@@ -1,3 +1,4 @@
+<!-- Komponenta za dodavanje novog proizvoda.Samo ulogovani korinsik i vlasnik butika moze dodavati proizvode u svoj butik -->
 <template>
     <div class="container text-center">
       <h2>Dodaj novi proizvod u bazu</h2>
@@ -143,7 +144,7 @@
 
 
 
-         // Dodao sam error u data deo
+
       };
     },
     mounted() {
@@ -252,9 +253,9 @@ isColorSelected(color) {
       },
 
       handleImageChange(inputName,event) {
-  console.log('Event:', event); // Dodajte ovu liniju
+  console.log('Event:', event);
   const file = event.target.files[0];
-  console.log('File:', file); // Dodajte ovu liniju
+  console.log('File:', file);
   if (file) {
     // Postavljanje vrednosti u odgovarajući data property na osnovu imena inputa
     this[inputName] = file;
@@ -263,7 +264,7 @@ isColorSelected(color) {
     this[inputName] = null;
   }
 },
-
+// Nakon sto se sacuva proizvod polja za unos se prazne
 emptyForm(){
     this.productName='',
     this.price='',
