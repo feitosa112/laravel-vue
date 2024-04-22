@@ -14,7 +14,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <router-link :to="{name:'boutiques-page'}" class="nav-item nav-link">Butici</router-link>
+                            <router-link :to="{name:'boutiques-page'}" class="nav-item nav-link">Pocetna</router-link>
 
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
@@ -23,12 +23,12 @@
                                     <a href="checkout.html" class="dropdown-item">Checkout</a>
                                 </div>
                             </div>
-                            <router-link :to="{name:'contactView'}" class="nav-item nav-link">Contact</router-link>
+                            <router-link :to="{name:'contactView'}" class="nav-item nav-link">Kontakt</router-link>
                             <router-link :to="{name:'allProducts'}" class="nav-item nav-link">Svi proizvodi</router-link>
 
-                            <router-link class="nav-item nav-link" :to="{name:'addNewBoutique'}" v-if="user != null && user.email === admin_email">Add boutique</router-link>
+                            <router-link class="nav-item nav-link" :to="{name:'addNewBoutique'}" v-if="user != null && user.email === admin_email">Dodaj novi butik</router-link>
 
-                            <router-link class="nav-item nav-link" :to="{name:'myFavorite'}" v-if="user != null">My favorites</router-link>
+                            <router-link class="nav-item nav-link" :to="{name:'myFavorite'}" v-if="user != null">Omiljeno</router-link>
 
 
                         </div>
@@ -36,7 +36,7 @@
 
                             <router-link class="btn px-0" :to="{name:'cartView'}">
                                 <i class="fas fa-shopping-cart text-primary me-2"></i>
-                                <span class="badge text-secondary border border-secondary" style="padding-bottom: 2px;">View Cart</span>
+                                <span class="badge text-secondary border border-secondary" style="padding-bottom: 2px;">Pogledaj korpu</span>
                             </router-link>
                             <!-- <a href="" class="btn px-0 ml-3">
                                 <i class="fas fa-shopping-cart text-primary"></i>
