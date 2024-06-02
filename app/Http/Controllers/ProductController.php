@@ -255,44 +255,45 @@ public function editProduct($id){
 
 public function updateProduct(Request $request, $id)
 {
-    // Pronalaženje proizvoda po ID-u
-    $product = ProductsModel::findOrFail($id);
+    try {
+        $product = ProductsModel::findOrFail($id);
 
-    // Pronalaženje butika koji je vlasnik proizvoda
-    $boutique = BoutiquesModel::where('id',$product->boutique_id)->first();
-    $requestData = $request->all();
-    // Ažuriranje atributa proizvoda sa podacima iz zahteva
+        $product->name = $request->input('name', $product->name);
+        $product->category_id = $request->input('category_id', $product->category_id);
+        $product->subcategory_id = $request->input('subcategory_id', $product->subcategory_id);
+        $product->price = $request->input('price', $product->price);
+        $product->old_price = $request->input('old_price', $product->old_price);
+        $product->description = $request->input('description', $product->description);
+        $product->color = $request->input('color', $product->color);
+        $product->size = $request->input('size', $product->size);
+        Log::info('Product name:'.$product->name);
+        if ($request->hasFile('image1')) {
+            $image1 = $request->file('image1');
+            $image1Path = $image1->store('images', 'public');
+            $product->image1 = $image1Path;
+        }
 
-        $product->name = $requestData['name'];
-        $product->description =$requestData['description'];
-        $product->price = $requestData['price'];
-        $product->old_price= $requestData['old_price'];
-        $product->color = $requestData['color'];
-        $product->size = $requestData['size'];
+        if ($request->hasFile('image2')) {
+            $image2 = $request->file('image2');
+            $image2Path = $image2->store('images', 'public');
+            $product->image2 = $image2Path;
+        }
 
+        if ($request->hasFile('image3')) {
+            $image3 = $request->file('image3');
+            $image3Path = $image3->store('images', 'public');
+            $product->image3 = $image3Path;
+        }
+        Log::info('Izmjenjeni product:'.$product);
 
-    // Ako su poslate nove slike, čuvamo ih i ažuriramo putanje u bazi podataka
-    if ($request->hasFile('image1')) {
-        $image1 = $request->file('image1')->store('images/'.$boutique->name);
-        $product->image1 = $image1;
+        $product->save();
+
+        return response()->json(['message' => 'Product updated successfully'], 200);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Error updating product', 'error' => $e->getMessage()], 500);
     }
-
-    if ($request->hasFile('image2')) {
-        $image2 = $request->file('image2')->store('images/'.$boutique->name);
-        $product->image2 = $image2;
-    }
-
-    if ($request->hasFile('image3')) {
-        $image3 = $request->file('image3')->store('images/'.$boutique->name);
-        $product->image3 = $image3;
-    }
-
-    // Čuvamo ažurirane informacije o proizvodu
-    $product->save();
-
-    // Vraćanje odgovora kao JSON sa porukom o uspešnom ažuriranju
-    return response()->json(['message' => 'Product updated successfully']);
 }
+
 
     }
 
