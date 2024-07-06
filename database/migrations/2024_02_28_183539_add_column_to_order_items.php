@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('order_items', function (Blueprint $table) {
             $table->string('product_name')->after('order_id');
-            $table->foreign('product_name')->references('name')->on('products');
 
             $table->string('product_size')->after('product_name');
             $table->integer('quantity')->after('product_size');
