@@ -1,0 +1,22 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-w40geAFS.js",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/images/butik1.jpeg": {
+    "file": "assets/butik1-yMjz9BG1.jpeg",
+    "src": "resources/images/butik1.jpeg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-TCTL2BN8.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "css": [
+      "assets/app-HebXJjKx.css"
+    ],
+    "assets": [
+      "assets/butik1-yMjz9BG1.jpeg"
+    ]
+  }
+}
