@@ -98,7 +98,7 @@ export default {
         }
       },
         getAbsoluteImagePath(boutiqueName, imageName) {
-            return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
+            return `/images/${boutiqueName}/${imageName}`;
         },
         removeSpace(name) {
             // Provera da li je name definisan i da li ima metodu replace

@@ -20,7 +20,7 @@ import MyFavorites from './components/MyFavorites.vue';
 import ContactView from './components/ContactView.vue';
 import EditView from './components/EditView.vue'
 
-window.apiUrl = 'http://127.0.0.1:8000/api'
+window.apiUrl = '/api'
 const app = createApp(App)
 
 const router = createRouter({

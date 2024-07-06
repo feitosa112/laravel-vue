@@ -83,7 +83,7 @@ pomocu API koji je izgradjen u laravelu(BoutiquesControllor.php) -->
       },
     //   metoda u kojoj postavljamo apsolutnu putanju za slike
       getAbsoluteImagePath(boutiqueName,imageName) {
-      return `http://127.0.0.1:8000/images/${boutiqueName}/${imageName}`;
+      return `/images/${boutiqueName}/${imageName}`;
     },
     // metoda koju koristimo da neutralisemo razmak izmedju rijeci u url-u
     removeSpace(name){

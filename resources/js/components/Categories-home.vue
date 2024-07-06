@@ -70,7 +70,7 @@ export default {
 
     },
     getAbsoluteImagePath(imageName) {
-      return `http://127.0.0.1:8000/images/${imageName}`;
+      return `/images/${imageName}`;
     },
     // metoda za uklanjanje razmaka izmedju rijeci koju cemo iskoristii u url-u
     removeSpace(name){
