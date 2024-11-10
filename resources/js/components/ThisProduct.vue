@@ -39,7 +39,7 @@
                         <form @submit.prevent="submitForm">
 
                             <div class="d-flex mb-3" v-if="product.size != null">
-                                <strong class="text-dark mr-3">Sizes:</strong>
+                                <strong class="text-dark mr-3">Odaberi velicinu:</strong>
 
                                 <div class="custom-control custom-radio custom-control-inline" v-for="(size,index) in product.size.split(',')">
                                     <input type="radio" class="custom-control-input" :id="'size-'+index" :name="'size-group'" v-model="selectedSize" :value="size">
@@ -48,7 +48,7 @@
 
                             </div>
                             <div class="d-flex mb-4" v-if="product.color != null">
-                                <strong class="text-dark mr-3">Colors:</strong>
+                                <strong class="text-dark mr-3">Odaberi boju:</strong>
 
                                 <div class="custom-control custom-radio custom-control-inline" v-for="(color, index) in product.color.split(',')">
                                     <input type="radio" class="custom-control-input" :id="'color-' + index" :name="'color-group'" v-model="selectedColor" :value="color">
@@ -57,7 +57,7 @@
                             </div>
 
 
-                        <button class="btn btn-primary px-3" type="submit"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+                        <button class="btn btn-primary px-3" type="submit"><i class="fa fa-shopping-cart mr-1"></i> Dodaj u korpu</button>
 
                         </form>
                         <div class="alert alert-success" v-if="productInCart">Proizvod je u korpi vec</div>
@@ -96,7 +96,7 @@
             <div class="col">
                 <div class="bg-light p-30">
                     <div class="nav nav-tabs mb-4">
-                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                        <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Opis</a>
                         <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews (0)</a>
                     </div>
                     <div class="tab-content">
